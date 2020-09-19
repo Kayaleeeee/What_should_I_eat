@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RenderAfterNavermapsLoaded ncpClientId={"sbw4q2m6xe"}>
+      <App />
+    </RenderAfterNavermapsLoaded>
   </React.StrictMode>,
   document.getElementById("root")
 );
