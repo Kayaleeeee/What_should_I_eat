@@ -10,7 +10,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-naver-maps": "^0.0.13",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "use-position": "0.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

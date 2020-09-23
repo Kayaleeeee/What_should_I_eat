@@ -1,10 +1,17 @@
 import React from "react";
 import { RenderAfterNavermapsLoaded, NaverMap } from "react-naver-maps";
+import { usePosition } from "use-position";
 import "./naverApiMap.scss";
 
 export const NaverAPIMap = (props) => {
   //   const navermaps = window.naver.maps;
-
+  const watch = true;
+  const { latitude, longitude, timestamp, accuracy, error } = usePosition(
+    watch,
+    { enableHighAccuracy: true }
+  );
+  console.log(latitude);
+  console.log(longitude);
   return (
     <RenderAfterNavermapsLoaded clientId={"인증키"}>
       <NaverMap
@@ -14,8 +21,8 @@ export const NaverAPIMap = (props) => {
           width: "80%",
           height: "400px",
         }}
-        defaultCenter={{ lat: 37.3595704, lng: 127.105399 }}
-        defaultZoom={10}
+        center={{ lat: latitude, lng: longitude}}
+        defaultZoom={15}
       />
     </RenderAfterNavermapsLoaded>
   );
