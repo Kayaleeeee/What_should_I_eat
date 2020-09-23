@@ -6,7 +6,7 @@ export const NaverAPIMap = (props) => {
   //   const navermaps = window.naver.maps;
 
   return (
-    <RenderAfterNavermapsLoaded clientId={"credentail"}>
+    <RenderAfterNavermapsLoaded clientId={"인증키"}>
       <NaverMap
         id={"map"}
         mapDivId={"react-naver-map"} // default name

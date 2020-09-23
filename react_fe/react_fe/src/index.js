@@ -6,7 +6,7 @@ import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RenderAfterNavermapsLoaded ncpClientId={"sbw4q2m6xe"}>
+    <RenderAfterNavermapsLoaded ncpClientId={"인증키"}>
       <App />
     </RenderAfterNavermapsLoaded>
   </React.StrictMode>,
