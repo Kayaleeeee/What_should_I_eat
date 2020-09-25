@@ -5,6 +5,10 @@
   font-family: "Do Hyeon";
   color: white;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   width: calc(100vw (100vw - 100%));
 }
@@ -36,11 +40,11 @@ body {
   font-size: 70px;
 }
 .bg1map {
-  width: 200px;
-  height: 200px;
-  margin: 0 0 0 150px;
+  width: 300px;
+  height: 300px;
+  margin: 0 0 0 20%;
   background-color: teal;
-  border-radius: 40px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,8 +80,8 @@ body {
   width: 100%;
 }
 .prof {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   border-radius: 40px;
   background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
   display: flex;
