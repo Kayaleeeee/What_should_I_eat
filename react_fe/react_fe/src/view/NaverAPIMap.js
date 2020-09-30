@@ -1,6 +1,7 @@
 import React from "react";
 import { RenderAfterNavermapsLoaded, NaverMap } from "react-naver-maps";
 import { usePosition } from "use-position";
+import Restaurantlist from "./RestaurantList";
 import "./scss/naverApiMap.scss";
 
 export const NaverAPIMap = (props) => {
@@ -14,18 +15,25 @@ export const NaverAPIMap = (props) => {
   console.log(longitude);
 
   return (
-    <RenderAfterNavermapsLoaded clientId={"sbw4q2m6xe"}>
-      <NaverMap
-        id={"map"}
-        mapDivId={"react-naver-map"} // default name
-        style={{
-          width: "80%",
-          height: "400px",
-        }}
-        center={{ lat: latitude, lng: longitude }}
-        defaultZoom={15}
-      />
-    </RenderAfterNavermapsLoaded>
+    <div>
+      <div>
+        <RenderAfterNavermapsLoaded clientId={"sbw4q2m6xe"}>
+          <NaverMap
+            id={"map"}
+            mapDivId={"react-naver-map"} // default name
+            style={{
+              width: "80%",
+              height: "400px",
+            }}
+            center={{ lat: latitude, lng: longitude }}
+            defaultZoom={15}
+          />
+        </RenderAfterNavermapsLoaded>
+      </div>
+      <div>
+        <Restaurantlist />
+      </div>
+    </div>
   );
 };
 
