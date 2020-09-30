@@ -2,15 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <RenderAfterNavermapsLoaded ncpClientId={"sbw4q2m6xe"}>
-        <App />
-      </RenderAfterNavermapsLoaded>
+      <App />
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById("root")

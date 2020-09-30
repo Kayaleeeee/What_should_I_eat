@@ -1,14 +1,13 @@
 import React from "react";
 import "./scss/home.scss";
-import NaverApiMap from "./NaverAPIMap";
-import Nav from "./Nav";
+import Map from "./Map";
 
 function Home() {
   return (
     <div className={"outline"}>
       <div className={"container"}>
         <h1>Map</h1>
-        <NaverApiMap></NaverApiMap>
+        <Map />
         <div className={"map"}></div>
       </div>
     </div>
