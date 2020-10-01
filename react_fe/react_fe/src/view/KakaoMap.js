@@ -8,7 +8,7 @@ class KakaoMap extends Component {
 
     this.state = {
       lat: this.props.latitude,
-      long: this.props.longtitude,
+      long: this.props.longitude,
     };
   }
 
@@ -18,7 +18,7 @@ class KakaoMap extends Component {
 
   componentDidMount() {
     let lat = this.state.latitude;
-    let long = this.state.longtitude;
+    let long = this.state.longitude;
 
     console.log(lat, long, this.props.test);
 
@@ -32,7 +32,7 @@ class KakaoMap extends Component {
       kakao.maps.load(() => {
         let el = document.getElementById("map");
         let options = {
-          center: new kakao.maps.LatLng(33.4650701, 126.570667),
+          center: new kakao.maps.LatLng(this.props.latitude, this.props.longitude),
           level: 4,
         };
 
