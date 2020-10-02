@@ -1,3 +1,5 @@
+/*global kakao*/
+
 import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
@@ -63,6 +65,8 @@ function Map(props) {
   useEffect(getLatitude, getLongitude, [latitude, longitude]);
   console.log("lat: " + latitude, " long: " + longitude);
 
+  //좌표로 주소 얻어오기
+
   return (
     <div>
       <div className={"searchPlace"}>
@@ -77,12 +81,11 @@ function Map(props) {
         </form>
       </div>
 
-      {/* lat long 값 전달해줘야하는데요 */}
       <KakaoMap latitude={latitude} longitude={longitude} test={"test"} />
-
+      {/* 
       <div className={"placeList"}>
         <ul id="places"></ul>
-      </div>
+      </div> */}
     </div>
   );
 }
