@@ -77,7 +77,7 @@ function Map(props) {
         </form>
       </div>
 
-      {/* lat long 값 전달해줘야하는데요~!~! */}
+      {/* lat long 값 전달해줘야하는데요 */}
       <KakaoMap latitude={latitude} longitude={longitude} test={"test"} />
 
       <div className={"placeList"}>

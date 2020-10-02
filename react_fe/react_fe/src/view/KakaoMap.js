@@ -24,8 +24,7 @@ class KakaoMap extends Component {
 
     const script = document.createElement("script");
     script.async = true;
-    script.src =
-      "https://dapi.kakao.com/v2/maps/sdk.js?appkey=c30bf6535e0de249c3e4abb9e84f72d9&autoload=false";
+    script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -37,6 +36,8 @@ class KakaoMap extends Component {
         };
 
         const map = new window.kakao.maps.Map(el, options);
+        const ps = new kakao.maps.InfoWindow({ zIndex: 1 });
+        ç;
       });
     };
   }
