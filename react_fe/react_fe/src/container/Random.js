@@ -9,7 +9,7 @@ const Random = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1500);
   }, []);
   return (
     <div className="outline">
@@ -22,9 +22,9 @@ const Random = () => {
             randomMenu
           )}
           {!loading && (
-            <button>
-              <Link to="/">내 주변 식당 추천받기</Link>
-            </button>
+            <Link to="/">
+              <button>내 주변 식당 추천받기</button>
+            </Link>
           )}
         </p>
       </div>
@@ -37,7 +37,7 @@ const Random = () => {
           font-size: 50px;
           flex-direction: column;
         }
-        .randomMenu button {
+        button {
           margin-top: 80px;
           border: solid 1px #0052cc;
           border-radius: 20px;
@@ -46,11 +46,12 @@ const Random = () => {
           font-size: 18px;
           background-color: #ffffff;
           color: #0052cc;
+          cursor: pointer;
         }
         .outline {
           margin: 0;
           padding: 2rem;
-        }  
+        }
         .container {
           //   background-color: crimson;
           width: 1040px;
@@ -61,7 +62,7 @@ const Random = () => {
         }
         h1 {
           text-align: center;
-        }        
+        }
       `}</style>
     </div>
   );
