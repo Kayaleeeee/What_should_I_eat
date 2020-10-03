@@ -23,8 +23,7 @@ class KakaoMap extends Component {
 
     const script = document.createElement("script");
     script.async = true;
-    script.src =
-      "https://dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing,markers&autoload=false";
+    script.src = process.env.REACT_APP_KAKAO_URL;
     document.head.appendChild(script);
 
     script.onload = () => {
