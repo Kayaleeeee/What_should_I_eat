@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./scss/about.scss";
 class About1 extends Component {
   state = {};
   render() {

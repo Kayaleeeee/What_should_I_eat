@@ -1,8 +1,8 @@
 import React from "react";
-import Home from "./view/Home";
-import About from "./view/About";
-import Nav from "./view/Nav";
-import Random from "./view/Random";
+import Home from "./Home";
+import About from "./About";
+import Nav from "./Nav";
+import Random from "../container/Random";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
