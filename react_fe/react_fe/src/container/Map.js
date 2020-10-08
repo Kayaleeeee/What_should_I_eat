@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
-import "./scss/map.scss";
+//import "./scss/map.scss";
 import axios from "axios";
 import KakaoMap from "./KakaoMap";
 
@@ -69,7 +69,7 @@ function Map(props) {
 
   return (
     <div>
-      <div className={"searchPlace"}>
+      <div className="searchPlace">
         <form onSubmit={searchPlace}>
           <input
             type="text"

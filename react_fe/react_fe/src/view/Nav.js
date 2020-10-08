@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./scss/nav.scss";
 
 const Nav = () => {
   return (
@@ -22,6 +21,24 @@ const Nav = () => {
         &nbsp;|&nbsp;
         <li>Menu2</li>
       </ul>
+      <style jsx>{`
+        ul {
+          list-style: none;
+          display: flex;
+          width: 1040px;
+          margin: auto;
+          justify-content: flex-end;
+        }
+        a {
+          text-decoration: none;
+        }
+        a:visited {
+          color: #000000;
+        }
+        a:hover {
+          color: #b1b1b1;
+        }
+      `}</style>
     </div>
   );
 };

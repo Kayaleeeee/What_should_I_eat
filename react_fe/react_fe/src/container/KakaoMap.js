@@ -1,12 +1,11 @@
 /*global kakao*/
 
 import React, { Component } from "react";
-import "./scss/map.scss";
-import "./scss/kakaoMap.scss";
 
 class KakaoMap extends Component {
   state = {
     keyword: " ",
+    markers: [],
   };
 
   handleChange = (e) => {
@@ -17,9 +16,7 @@ class KakaoMap extends Component {
 
   render() {
     let map;
-
-    let markers = [];
-    let inflowindoes = [];
+    let markers = this.state.markers;
 
     const script = document.createElement("script");
     script.async = true;
@@ -44,59 +41,45 @@ class KakaoMap extends Component {
     let geocoder = new kakao.maps.services.Geocoder();
 
     let keyword = this.state.keyword;
-    console.log(this.props.latitude);
-    console.log("geocode", geocoder);
-    console.log(geocoder.coords);
-
-    console.log(geocoder.LatLng);
-
-    // let test = this.props.test;
-    // let lat = this.props.latitude;
-    // let long = this.props.longitude;
-
     var ps = new kakao.maps.services.Places();
 
-    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+    let bounds = new kakao.maps.LatLngBounds();
 
     // 키워드로 장소를 검색합니다
     searchPlaces();
 
-    // 키워드 검색을 요청하는 함수입니다
+    // 키워드 검색을 요청하는 함수입
     function searchPlaces() {
       if (!keyword.replace(/^\s+|\s+$/g, "")) {
         // alert("키워드를 입력해주세요!");
         return false;
       }
 
-      // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+      // 장소검색 객체를 통해 키워드로 장소검색을 요청
       ps.keywordSearch(keyword, placesSearchCB);
     }
 
-    // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+    // 장소검색이 완료됐을 때 호출되는 콜백함수
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
-        // 검색 목록과 마커를 표출합니다
+        // 검색 목록과 마커를 표출
         displayPlaces(data);
 
-        // 페이지 번호를 표출합니다
+        // 페이지 번호를 표출
         displayPagination(pagination);
-      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        // alert("검색 결과가 존재하지 않습니다.");
-        return;
-      } else if (status === kakao.maps.services.Status.ERROR) {
-        // alert("검색 결과 중 오류가 발생했습니다.");
-        return;
       }
+      map.setBounds(bounds);
     }
 
-    // 검색 결과 목록과 마커를 표출하는 함수입니다
+    // 검색 결과 목록과 마커를 표출하는 함수
     function displayPlaces(places) {
       var listEl = document.getElementById("placesList"),
         menuEl = document.getElementById("menu_wrap"),
         fragment = document.createDocumentFragment(),
-        bounds = new kakao.maps.LatLngBounds(),
         listStr = "";
 
       // 검색 결과 목록에 추가된 항목들을 제거
@@ -111,6 +94,7 @@ class KakaoMap extends Component {
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성
 
+        console.log(`placePosition :${placePosition}`);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
         bounds.extend(placePosition);
@@ -127,9 +111,9 @@ class KakaoMap extends Component {
             infowindow.close();
           });
 
-          itemEl.onmouseover = function () {
-            displayInfowindow(marker, title);
-          };
+          // itemEl.onmouseover = function () {
+          //   displayInfowindow(marker, title);
+          // };
 
           itemEl.onmouseout = function () {
             infowindow.close();
@@ -144,7 +128,9 @@ class KakaoMap extends Component {
       menuEl.scrollTop = 0;
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정
+
       map.setBounds(bounds);
+      console.log("setBounds");
     }
 
     // 검색결과 항목을 Element로 반환하는 함수
@@ -180,7 +166,7 @@ class KakaoMap extends Component {
     }
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수
-    function addMarker(position, idx, title) {
+    function addMarker(position, idx) {
       var imageSrc =
           "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
@@ -260,9 +246,6 @@ class KakaoMap extends Component {
       }
     }
 
-    // let lat = this.lat;
-    // let long = this.props.longitude;
-
     return (
       <div class="map_wrap">
         <div id="map"></div>
@@ -287,6 +270,204 @@ class KakaoMap extends Component {
           <ul id="placesList"></ul>
           <div id="pagination"></div>
         </div>
+
+        <style jsx>{`
+          #map {
+            margin: auto;
+          }
+
+          .searchPlace {
+            display: flex;
+            margin-bottom: 10px;
+            justify-content: center;
+          }
+
+          .placeList {
+            margin-top: 50px;
+            border: solid 1px #b1b1b1;
+          }
+
+          .placeList ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          // .kakaoMap {
+          //   width: 600px;
+          //   height: 300px;
+          // }
+
+          #map {
+            width: 800px;
+            height: 500px;
+          }
+
+          //kakaoMap.scss
+          .map_wrap,
+          .map_wrap * {
+            margin: 0;
+            padding: 0;
+            font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+            font-size: 12px;
+          }
+          .map_wrap a,
+          .map_wrap a:hover,
+          .map_wrap a:active {
+            color: #000;
+            text-decoration: none;
+          }
+          .map_wrap {
+            position: relative;
+            width: 100%;
+            height: 500px;
+          }
+          #menu_wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            margin: 10px 0 30px 10px;
+            padding: 5px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+            font-size: 12px;
+            border-radius: 10px;
+          }
+          .bg_white {
+            background: #fff;
+          }
+          #menu_wrap hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 2px solid #5f5f5f;
+            margin: 3px 0;
+          }
+          #menu_wrap .option {
+            text-align: center;
+          }
+          #menu_wrap .option p {
+            margin: 10px 0;
+          }
+          #menu_wrap .option button {
+            margin-left: 5px;
+          }
+          #placesList li {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+          }
+          #placesList .item {
+            position: relative;
+            border-bottom: 1px solid #888;
+            overflow: hidden;
+            cursor: pointer;
+            min-height: 65px;
+          }
+          #placesList .item span {
+            display: block;
+            margin-top: 4px;
+          }
+          #placesList .item h5,
+          #placesList .item .info {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          #placesList .item .info {
+            padding: 10px 0 10px 55px;
+          }
+          #placesList .info .gray {
+            color: #8a8a8a;
+          }
+          #placesList .info .jibun {
+            padding-left: 26px;
+            background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
+              no-repeat;
+          }
+          #placesList .info .tel {
+            color: #009900;
+          }
+          #placesList .item .markerbg {
+            float: left;
+            position: absolute;
+            width: 36px;
+            height: 37px;
+            margin: 10px 0 0 10px;
+            background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
+              no-repeat;
+          }
+          #placesList .item .marker_1 {
+            background-position: 0 -10px;
+          }
+          #placesList .item .marker_2 {
+            background-position: 0 -56px;
+          }
+          #placesList .item .marker_3 {
+            background-position: 0 -102px;
+          }
+          #placesList .item .marker_4 {
+            background-position: 0 -148px;
+          }
+          #placesList .item .marker_5 {
+            background-position: 0 -194px;
+          }
+          #placesList .item .marker_6 {
+            background-position: 0 -240px;
+          }
+          #placesList .item .marker_7 {
+            background-position: 0 -286px;
+          }
+          #placesList .item .marker_8 {
+            background-position: 0 -332px;
+          }
+          #placesList .item .marker_9 {
+            background-position: 0 -378px;
+          }
+          #placesList .item .marker_10 {
+            background-position: 0 -423px;
+          }
+          #placesList .item .marker_11 {
+            background-position: 0 -470px;
+          }
+          #placesList .item .marker_12 {
+            background-position: 0 -516px;
+          }
+          #placesList .item .marker_13 {
+            background-position: 0 -562px;
+          }
+          #placesList .item .marker_14 {
+            background-position: 0 -608px;
+          }
+          #placesList .item .marker_15 {
+            background-position: 0 -654px;
+          }
+          #pagination {
+            margin: 10px auto;
+            text-align: center;
+          }
+          #pagination a {
+            display: inline-block;
+            margin-right: 10px;
+          }
+          #pagination .on {
+            font-weight: bold;
+            cursor: default;
+            color: #777;
+          }
+
+          #placesList {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            width: 1040px;
+            margin: auto;
+            justify-content: flex-end;
+          }
+        `}</style>
       </div>
     );
   }
