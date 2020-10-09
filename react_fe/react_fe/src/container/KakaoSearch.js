@@ -1,33 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import KakaoMap from "./KakaoMap";
 
-export default class Kakaosearch extends Component {
-  constructor(props) {
-    super(props);
+const KakaoSearch = () => {
+  const [inputText, setInputText] = useState("");
+  const [place, setPlace] = useState("");
 
-    this.state = {};
-
-    this.handleEvent = this.handleEvent.bind(this);
-  }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.name !== this.state.name) {
-      this.handler();
-    }
-  }
-
-  componentWillUnmount() {}
-
-  // Prototype methods, Bind in Constructor (ES2015)
-  handleEvent() {}
-
-  // Class Properties (Stage 3 Proposal)
-  handler = () => {
-    this.setState();
+  const onChange = (e) => {
+    setInputText(e.target.value);
   };
 
-  render() {
-    return <></>;
-  }
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPlace(inputText);
+    setInputText("");
+  };
+
+  return (
+    <>
+      <form className="inputForm" onSubmit={handleSubmit}>
+        <input
+          placeholder="검색할 장소를 입력해주세요."
+          onChange={onChange}
+          value={inputText}
+        />
+        <button type="submit">검색</button>
+      </form>
+      <KakaoMap searchPlace={place} />
+
+      <style jsx>{`
+        .inputForm {
+          margin: 1rem auto;
+          text-align: center;
+          width: 20rem;
+        }
+
+        input {
+          width: 15rem;
+          height: 2rem;
+        }
+
+        button {
+          margin-left: 1rem;
+          padding: 0.2rem;
+        }
+      `}</style>
+    </>
+  );
+};
+
+export default KakaoSearch;

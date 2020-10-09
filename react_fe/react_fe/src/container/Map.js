@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
-//import "./scss/map.scss";
 import axios from "axios";
-import KakaoMap from "./KakaoMap";
+import KakaoMapContainer from "../view/KakaoMapView";
+import KakaoMapView from "../view/KakaoMapView";
 
 function Map(props) {
   //   const navermaps = window.naver.maps;
@@ -69,7 +69,7 @@ function Map(props) {
 
   return (
     <div>
-      <div className="searchPlace">
+      {/* <div className="searchPlace">
         <form onSubmit={searchPlace}>
           <input
             type="text"
@@ -79,13 +79,10 @@ function Map(props) {
           />
           <button>검색</button>
         </form>
-      </div>
-
-      <KakaoMap latitude={latitude} longitude={longitude} test={"test"} />
-      {/* 
-      <div className={"placeList"}>
-        <ul id="places"></ul>
       </div> */}
+
+      <KakaoMapView />
+      {/* <KakaoMap latitude={latitude} longitude={longitude} test={"test"} /> */}
     </div>
   );
 }
