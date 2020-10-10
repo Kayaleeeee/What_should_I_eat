@@ -18,6 +18,13 @@ function App() {
           <Route path="/random" component={Random} />
         </Switch>
       </main>
+      <style jsx>{`
+        nav {
+          //여기에 값 수정하시면 돼요!!
+          margin: 20px;
+        }
+      `}
+      </style>
     </Router>
   );
 }
