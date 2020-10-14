@@ -4,7 +4,6 @@ const { kakao } = window;
 
 const KakaoMap = ({ searchPlace }) => {
   const [markers, setMarkers] = useState([]);
-  console.log(searchPlace);
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -31,7 +30,6 @@ const KakaoMap = ({ searchPlace }) => {
     }
 
     function removeAllChildNods(el) {
-      console.log(el);
       while (el.hasChildNodes()) {
         el.removeChild(el.lastChild);
       }
@@ -39,6 +37,8 @@ const KakaoMap = ({ searchPlace }) => {
 
     // 키워드 검색 완료 시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination) {
+      console.log("data : " +data)
+
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
@@ -65,11 +65,11 @@ const KakaoMap = ({ searchPlace }) => {
       });
 
       // 마커에 클릭이벤트를 등록
-      kakao.maps.event.addListener(marker, "click", function () {
+      kakao.maps.event.addListener(marker, "mouseover", function () {
+
         infowindow.setContent(
           //여기에 URL등록 가능//
-
-          '<div class="markerBasic">' + place.place_name + "</div>"
+          `<div class="markerBasic"><a herf=${place.url}>` + place.place_name + "</a></div>"
         );
         infowindow.open(map, marker);
       });
@@ -88,21 +88,21 @@ const KakaoMap = ({ searchPlace }) => {
           places.place_url +
           ">" +
           places.place_name +
-          "</a></h5>";
+          "</a></h5>" +`<h6 class='place_category'>${places.category_name}</h6>`;
 
       if (places.road_address_name) {
         itemStr +=
-          "    <span>" +
+          "    <span><h6 class='place_address'> " + 
           places.road_address_name +
-          "</span>" +
-          '   <span class="jibun gray">' +
-          places.place_url +
-          "</span>";
+          "</h6></span>" 
+
       } else {
-        itemStr += "    <span>" + places.address_name + "</span>";
+        itemStr +=    "    <span><h6 class='place_address'> " + 
+        places.address_name +
+        "</h6></span>" ;
       }
 
-      itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
+      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
 
       el.innerHTML = itemStr;
       el.className = "item";
@@ -117,12 +117,10 @@ const KakaoMap = ({ searchPlace }) => {
       removeAllChildNods(placesList);
       removeMarker();
 
-      for (let i = 0; i < place.length; i++) {
+      for (let i = 0; i < 8; i++) {
         let placeItem = getListItem(i, place[i]);
         fragment.appendChild(placeItem);
       }
-
-      console.log(fragment);
       placesList.appendChild(fragment);
     }
   }, [searchPlace]);
@@ -133,7 +131,9 @@ const KakaoMap = ({ searchPlace }) => {
       {/* <div className=""></div> */}
       <div className="placeList_container">
         {" "}
-        <ul id="placeList" className="bg_white"></ul>
+        <div id="placeList" >
+          <h3 className="placeList_title">맛집 리스트</h3>
+        </div>
       </div>
 
       <style jsx>{`
@@ -149,26 +149,31 @@ const KakaoMap = ({ searchPlace }) => {
         }
 
         #placeList {
-          width: 20rem;
-          //   height: 90vh;
           position: absolute;
-          top: 0;
-          left: 3%;
+          width: 18em;
+          top: 5%;
+          // left: 1%;
           z-index: 2;
-          margin-top: 50px;
-          border: solid 1px #b1b1b1;
+          margin-top: 4%;
+          // border: solid 1px #b1b1b1;
+          padding:0.3rem;
+          // border-radius:20px;
+          // background-color: rgba( 255, 255, 255, 0.7 );
           display: flex;
           flex-direction: column;
+          overflow:hidden;
+        }
+
+        .placeList_container{
+          width: 5em;
           overflow: scroll;
         }
 
         #map {
-          width: 800px;
-          height: 500px;
+          width: 100hw;
+          height: 80vh;
           margin: auto;
         }
-
-        //kakaoMap.scss
 
         #menu_wrap {
           position: relative;
@@ -179,7 +184,7 @@ const KakaoMap = ({ searchPlace }) => {
           margin: 10px 0 30px 10px;
           padding: 5px;
           overflow-y: auto;
-          background: rgba(255, 255, 255, 0.7);
+          // background: rgba(255, 255, 255, 0.7);
           z-index: 1;
           font-size: 12px;
           border-radius: 10px;
@@ -187,73 +192,57 @@ const KakaoMap = ({ searchPlace }) => {
           flex-direction: column;
         }
 
-        .bg_white {
-          background: #fff 0.7;
-        }
-
-        #menu_wrap hr {
-          display: block;
-          height: 1px;
-          border: 0;
-          border-top: 2px solid #5f5f5f;
-          margin: 3px 0;
-        }
-
-        #placesList li {
-          list-style: none;
-          display: flex;
+        .item .info{
+          background: rgba(255, 255, 255, 0.7);
+          // padding: .5rem;
+          margin: 0.1rem;
+          height: 4rem;
+          display:flex;
           flex-direction: column;
+          border: 1px solid black;
+          justify-content:center;
+          align-items:center;
+          border-radius:10px;
+          // background: lightgray;
+        }
+      
+        h5{
+          padding:0;
+          margin:0;
+          font-size: 1rem;
+          padding-bottom:0.2rem;
+          // background-color:black;
+          color:white;
         }
 
-        #placesList .item {
-          position: relative;
-          border-bottom: 1px solid #888;
-          overflow: hidden;
-          cursor: pointer;
-          min-height: 65px;
-        }
-        #placesList .item span {
-          display: block;
-          margin-top: 4px;
-        }
-        #placesList .item h5,
-        #placesList .item .info {
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-        #placesList .item .info {
-          padding: 10px 0 10px 55px;
-        }
-        #placesList .info .gray {
-          color: #8a8a8a;
-        }
-        #placesList .info .jibun {
-          padding-left: 26px;
-          background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
-            no-repeat;
-        }
-        #placesList .info .tel {
-          color: #009900;
-        }
-        #placesList .item .markerbg {
-          float: left;
-          position: absolute;
-          width: 36px;
-          height: 37px;
-          margin: 10px 0 0 10px;
-          background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-            no-repeat;
+        h6{
+          padding:0;
+          margin:0;
         }
 
-        #placesList {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          width: 1040px;
-          margin: auto;
-          justify-content: flex-end;
+        li{
+          list-style:none;
         }
+        .place_category{
+          color: tomato;
+        }
+
+        .place_address{
+          color:gray;
+          padding-top: 0.3rem;
+          font-size:0.8rem;
+        }
+        
+        a{
+          text-deoration: none;
+          color: black;
+        }
+
+        ul{
+          padding:0;
+          margin:0;
+        }
+
       `}</style>
     </div>
   );

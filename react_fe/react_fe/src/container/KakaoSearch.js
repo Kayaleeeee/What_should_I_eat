@@ -23,7 +23,7 @@ const KakaoSearch = () => {
           onChange={onChange}
           value={inputText}
         />
-        <button type="submit">검색</button>
+        <button type="submit"><h5 className="search_icon">🔎</h5></button>
       </form>
       <KakaoMap searchPlace={place} />
 
@@ -31,17 +31,37 @@ const KakaoSearch = () => {
         .inputForm {
           margin: 1rem auto;
           text-align: center;
-          width: 20rem;
+          width: 30rem;
+       
         }
 
         input {
-          width: 15rem;
+          width: 25rem;
+          border-radius: 20px;
+          border: 1px solid lightgray;
           height: 2rem;
+          text-align: center;
+        }
+
+        input:focus{
+          border:none;
         }
 
         button {
           margin-left: 1rem;
-          padding: 0.2rem;
+          padding: .5rem;
+          background: lightgray;
+          border:none;
+          border-radius: 20px;
+        }
+
+
+        .search_icon{
+          font-size: 0.5rem;
+          padding:0 .5rem;
+        }
+        fas{
+          font-size: 1rem;
         }
       `}</style>
     </>
