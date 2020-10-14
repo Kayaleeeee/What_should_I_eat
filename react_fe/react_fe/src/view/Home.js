@@ -1,12 +1,12 @@
 import React from "react";
-import Map from "../container/Map";
+import KakaoMapView from "./KakaoMapView";
 
 function Home() {
   return (
     <div className="outline">
       <div className="container">
         <h1>Map</h1>
-        <Map />
+        <KakaoMapView />
         <div className="map"></div>
       </div>
     <style jsx>{`

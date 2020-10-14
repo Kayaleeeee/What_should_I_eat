@@ -1,5 +1,5 @@
 /*global kakao*/
-
+//to be deprecated
 import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
