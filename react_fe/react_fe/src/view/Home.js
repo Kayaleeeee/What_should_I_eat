@@ -5,8 +5,8 @@ function Home() {
   return (
     <div className="outline">
       <div className="container">
-        <h1>Map</h1>
-        <KakaoMapView />
+
+      <KakaoMapView />
         <div className="map"></div>
       </div>
     <style jsx>{`
@@ -17,11 +17,12 @@ function Home() {
       
       .container {
         //   background-color: crimson;
-        width: 1040px;
-        height: 630px;
+        width: 90%;
+        height: 85vh;
         margin: auto;
         border-radius: 30px;
         border: 8px solid black;
+        overflow:hidden;
       }
       
       .nav {

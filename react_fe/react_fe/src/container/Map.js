@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
 import axios from "axios";
-import KakaoMapContainer from "../view/KakaoMapView";
 import KakaoMapView from "../view/KakaoMapView";
 
 function Map(props) {
@@ -82,7 +81,6 @@ function Map(props) {
       </div> */}
 
       <KakaoMapView />
-      {/* <KakaoMap latitude={latitude} longitude={longitude} test={"test"} /> */}
     </div>
   );
 }
