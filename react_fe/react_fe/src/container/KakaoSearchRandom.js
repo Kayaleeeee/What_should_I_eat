@@ -7,7 +7,7 @@ const KakaoSearch = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
-  const menu = "맛집";
+  const menu = localStorage.getItem("randomMenu");
 
   const onChange = ({ coords }) => {
     setPosition({
