@@ -1,5 +1,6 @@
 /*global kakao*/
 //to be deprecated
+/*
 import React, { useState, useEffect } from "react";
 import { usePosition } from "use-position";
 
@@ -62,13 +63,13 @@ function Map(props) {
   };
 
   useEffect(getLatitude, getLongitude, [latitude, longitude]);
-  console.log("lat: " + latitude, " long: " + longitude);
+  //console.log("lat: " + latitude, " long: " + longitude);
 
   //좌표로 주소 얻어오기
 
   return (
     <div>
-      {/* <div className="searchPlace">
+      {<div className="searchPlace">
         <form onSubmit={searchPlace}>
           <input
             type="text"
@@ -78,11 +79,11 @@ function Map(props) {
           />
           <button>검색</button>
         </form>
-      </div> */}
+      </div> }
 
       <KakaoMapView />
     </div>
   );
 }
 
-export default Map;
+export default Map;*/
