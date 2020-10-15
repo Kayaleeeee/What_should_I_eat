@@ -5,38 +5,25 @@ function Home() {
   return (
     <div className="outline">
       <div className="container">
-
-      <KakaoMapView />
+        <KakaoMapView />
         <div className="map"></div>
       </div>
-    <style jsx>{`
-      .outline {
-        margin: 0;
-        padding: 2rem;
-      }
-      
-      .container {
-        //   background-color: crimson;
-        width: 90%;
-        height: 85vh;
-        margin: auto;
-        border-radius: 30px;
-        border: 8px solid black;
-        overflow:hidden;
-      }
-      
-      .nav {
-        margin: 1rem;
-        background-color: gray;
-        height: 30px;
-        text-align: right;
-      }
-      
-      h1 {
-        text-align: center;
-      }
-      
-    `}</style>
+      <style jsx>{`
+        .outline {
+          margin: 0;
+          padding: 2rem;
+        }
+
+        .container {
+          //   background-color: crimson;
+          width: 90%;
+          height: 85vh;
+          margin: auto;
+          border-radius: 30px;
+          border: 8px solid black;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   );
 }
