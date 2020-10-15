@@ -3,7 +3,7 @@ import Home from "./Home";
 import About from "./About";
 import Nav from "./Nav";
 import Random from "../container/Random";
-import KakaoCurrentMap from "../container/KakaoCurrentMap";
+import KakaoSearchCurrent from "../container/KakaoSearchCurrent";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
           <Route path="/random" component={Random} />
-          <Route path="/currentLocation" component={KakaoCurrentMap} />
+          <Route path="/currentLocation" component={KakaoSearchCurrent} />
         </Switch>
       </main>
       <style jsx>{`

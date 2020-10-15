@@ -10,14 +10,16 @@ const Nav = () => {
         </li>
         &nbsp;|&nbsp;
         <li>
-          <Link to="./random">랜덤 추천 메뉴</Link>
+          <Link to="/random">랜덤 추천 메뉴</Link>
         </li>
         &nbsp;|&nbsp;
         <li>
           <Link to="/about">About</Link>
         </li>
         &nbsp;|&nbsp;
-        <li>Menu1</li>
+        <li>
+          <Link to="/currentLocation">내 위치 기반 추천</Link>
+        </li>
         &nbsp;|&nbsp;
         <li>Menu2</li>
       </ul>
