@@ -69,7 +69,7 @@ const KakaoMap = ({ searchPlace }) => {
 
         infowindow.setContent(
           //여기에 URL등록 가능//
-          `<div class="markerBasic"><a herf=${place.url}>` + place.place_name + "</a></div>"
+          `<div class="markerBasic"><a href=${place.url}>` + place.place_name + "</a></div>"
         );
         infowindow.open(map, marker);
       });
@@ -86,7 +86,7 @@ const KakaoMap = ({ searchPlace }) => {
           "   <h5>" +
           "<a href= " +
           places.place_url +
-          ">" +
+          " target='_blank'>" +
           places.place_name +
           "</a></h5>" +`<h6 class='place_category'>${places.category_name}</h6>`;
 
