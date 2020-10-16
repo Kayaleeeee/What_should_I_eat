@@ -4,7 +4,7 @@ class About1 extends Component {
     return (
       <div id="About3">
         <div className="bg3txt">
-          <div className="prof prof1">
+          {/* <div className="prof prof1">
             <span>가연</span>
           </div>
           <div className="prof prof2">
@@ -12,7 +12,7 @@ class About1 extends Component {
           </div>
           <div className="prof prof3">
             <span>준형</span>
-          </div>
+          </div> */}
         </div>
       </div>
     );

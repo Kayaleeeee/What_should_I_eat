@@ -24,8 +24,8 @@ function App() {
       </main>
       <style jsx>{`
         nav {
-          //여기에 값 수정하시면 돼요!!
-          margin: 20px;
+          position: absolute;
+          right:10%;
         }
       `}
       </style>
