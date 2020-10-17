@@ -35,26 +35,61 @@ const KakaoMap = ({ searchPlace }) => {
       }
     }
 
+
+    function addMarker(position, idx, title) {
+      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+          imgOptions =  {
+              spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+              spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+              offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          },
+          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+              marker = new kakao.maps.Marker({
+              position: position, // 마커의 위치
+              image: markerImage 
+          });
+  
+      marker.setMap(map); // 지도 위에 마커를 표출합니다
+      markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+  
+      return marker;
+  }
+  
+
     // 키워드 검색 완료 시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination) {
-      console.log("data : " +data)
+      // console.log("data : " +data)
 
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
         let bounds = new kakao.maps.LatLngBounds();
+        if(data.length <1){
+          alert("검색하신 장소가 없습니다. ")
+        }
 
         displayPlaces(data);
         for (let i = 0; i < data.length; i++) {
           //URL받아오기 성공
-          console.log(data[i]);
+          // console.log(data[i]);
           displayMarker(data[i]);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정
         map.setBounds(bounds);
-      }
+      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+
+    } else if (status === kakao.maps.services.Status.ERROR) {
+
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
+
+    }
     }
 
     function displayMarker(place) {
@@ -110,15 +145,29 @@ const KakaoMap = ({ searchPlace }) => {
       return el;
     }
 
+
+
     function displayPlaces(place) {
       let placesList = document.getElementById("placeList");
       let fragment = document.createDocumentFragment();
 
+   
       removeAllChildNods(placesList);
       removeMarker();
 
-      for (let i = 0; i < 8; i++) {
+      console.log(place)
+      if(place.length<1){
+        alert("no place")
+        return;
+      }
+
+      for (let i = 0; i < place.length; i++) {
+        console.log(place[i])
+        let placePositon = new kakao.maps.LatLng(place[i].y, place[i].x),
+        bounds = new kakao.maps.LatLngBounds();
+  
         let placeItem = getListItem(i, place[i]);
+        bounds.extend(placePositon);
         fragment.appendChild(placeItem);
       }
       placesList.appendChild(fragment);
@@ -126,7 +175,7 @@ const KakaoMap = ({ searchPlace }) => {
   }, [searchPlace]);
 
   return (
-    <div className="map_wrap">
+    <div id="map_wrap">
       <div id="map"></div>
       {/* <div className=""></div> */}
       <div className="placeList_container">
@@ -149,24 +198,23 @@ const KakaoMap = ({ searchPlace }) => {
         }
 
         #placeList {
-          position: absolute;
-          width: 18em;
-          top: 5%;
-          // left: 1%;
-          z-index: 2;
-          margin-top: 4%;
-          // border: solid 1px #b1b1b1;
+          width:18rem;
+
           padding:0.3rem;
-          // border-radius:20px;
-          // background-color: rgba( 255, 255, 255, 0.7 );
           display: flex;
           flex-direction: column;
           overflow:hidden;
         }
 
         .placeList_container{
-          width: 5em;
-          overflow: scroll;
+          width: 19rem;
+          height: 80vh;
+          position: absolute;
+          z-index: 2;
+          margin-top: 4%;
+          top: 0;
+          overflow-y: scroll;
+          height: 80vh;
         }
 
         #map {
@@ -177,19 +225,15 @@ const KakaoMap = ({ searchPlace }) => {
 
         #menu_wrap {
           position: relative;
+          width: 100%;
+          height: 80vh;
           top: 0;
           left: 0;
           bottom: 0;
           width: 10rem;
-          margin: 10px 0 30px 10px;
           padding: 5px;
-          overflow-y: auto;
-          // background: rgba(255, 255, 255, 0.7);
           z-index: 1;
           font-size: 12px;
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
         }
 
         .item .info{
