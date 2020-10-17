@@ -99,12 +99,14 @@ const KakaoMap = ({ searchPlace }) => {
         position: new kakao.maps.LatLng(place.y, place.x),
       });
 
+      console.log(place)
       // 마커에 클릭이벤트를 등록
       kakao.maps.event.addListener(marker, "mouseover", function () {
 
         infowindow.setContent(
           //여기에 URL등록 가능//
-          `<div class="markerBasic"><a href=${place.url}>` + place.place_name + "</a></div>"
+          
+          `<div class="markerBasic"><a href=${place.place_url}>` + place.place_name + "</a></div>"
         );
         infowindow.open(map, marker);
       });
@@ -155,14 +157,12 @@ const KakaoMap = ({ searchPlace }) => {
       removeAllChildNods(placesList);
       removeMarker();
 
-      console.log(place)
       if(place.length<1){
         alert("no place")
         return;
       }
 
       for (let i = 0; i < place.length; i++) {
-        console.log(place[i])
         let placePositon = new kakao.maps.LatLng(place[i].y, place[i].x),
         bounds = new kakao.maps.LatLngBounds();
   
@@ -179,9 +179,9 @@ const KakaoMap = ({ searchPlace }) => {
       <div id="map"></div>
       {/* <div className=""></div> */}
       <div className="placeList_container">
+        <h3 className="placeList_title">음식점 리스트</h3>
         {" "}
         <div id="placeList" >
-          <h3 className="placeList_title">맛집 리스트</h3>
         </div>
       </div>
 
@@ -198,23 +198,33 @@ const KakaoMap = ({ searchPlace }) => {
         }
 
         #placeList {
-          width:18rem;
-
+          width: 18rem;
           padding:0.3rem;
           display: flex;
           flex-direction: column;
           overflow:hidden;
         }
 
+        .placeList_title{
+          text-align:center;
+          margin:auto;
+          width: 95%;
+          border-radius: 10px 10px 0 0 ;
+          padding:.5rem;
+          background:black;
+          color:white;
+        }
+
         .placeList_container{
           width: 19rem;
-          height: 80vh;
+          height: 83vh;
           position: absolute;
           z-index: 2;
           margin-top: 4%;
+          margin-left: .5%;
           top: 0;
           overflow-y: scroll;
-          height: 80vh;
+    
         }
 
         #map {
@@ -235,6 +245,7 @@ const KakaoMap = ({ searchPlace }) => {
           z-index: 1;
           font-size: 12px;
         }
+       
 
         .item .info{
           background: rgba(255, 255, 255, 0.7);
