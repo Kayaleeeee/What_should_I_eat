@@ -36,7 +36,7 @@ class Home extends Component {
       <style jsx>{`
         .outline {
           margin: 0;
-          padding: 2rem;
+         padding: 2rem;
         }
 
         .container {

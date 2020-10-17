@@ -10,8 +10,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <nav>
-        <Nav />
+      <div id="web_wrap">
+        <nav>
+        <Nav id ="nav_bar"/>
       </nav>
       <main>
         <Switch>
@@ -22,13 +23,24 @@ function App() {
           <Route path="/currentLocationRandom" component={KakaoSearchRandom} />
         </Switch>
       </main>
+      </div>
       <style jsx>{`
-        nav {
-          position: absolute;
-          right:10%;
+
+        #web_wrap{
+          position:relative;
+          width: 100wh;
+          // height:100vh;
+          overflow:hidden;
         }
-      `}
-      </style>
+
+        nav{
+          position: fixed;
+          top:0;
+          width:90%;
+          right:0;
+        }
+        `}
+</style>
     </Router>
   );
 }

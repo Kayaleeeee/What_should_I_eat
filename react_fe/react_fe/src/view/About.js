@@ -62,18 +62,15 @@ class About extends Component {
             font-family: "Do Hyeon";
             color: white;
           }
-          * {
-            margin: 0;
-            padding: 0;
-          }
-          
           body {
-            width: calc(100vw (100vw - 100%));
+            //width: calc(100vw (100vw - 100%));
+            margin:0;
+            padding:0;
           }
           
           .bodycontainer {
             width: calc(100vw (100vw - 100%));
-            min-height: 1080px;
+           min-height: 1080px;
             display: flex;
             flex-direction: column;
           }

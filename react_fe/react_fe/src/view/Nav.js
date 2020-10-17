@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <div>
+    <div className="nav_container">
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -24,22 +24,33 @@ const Nav = () => {
         <li>Menu2</li>
       </ul>
       <style jsx>{`
-        ul {
+
+        // .nav_container{
+        //   position:fixed;
+        //   top:0;
+        //   width:100%;
+        // }
+
+        .nav_container ul {
+          // padding-top:.5rem;
           list-style: none;
           display: flex;
-          width: 1040px;
-          margin: auto;
+          width: 90%;
           justify-content: flex-end;
         }
-        a {
+
+        .nav_container a {
+          font-size: 1rem;
+          padding: 0.5rem;
           text-decoration: none;
         }
-        a:visited {
+        .nav_container a:visited {
           color: #000000;
         }
-        a:hover {
+        .nav_container a:hover {
           color: #b1b1b1;
         }
+
       `}</style>
     </div>
   );

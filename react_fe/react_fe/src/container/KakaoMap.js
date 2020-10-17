@@ -224,27 +224,26 @@ const KakaoMap = ({ searchPlace }) => {
           margin-left: .5%;
           top: 0;
           overflow-y: scroll;
-    
+          overflow-x: hidden;
         }
 
         #map {
-          width: 100hw;
+          width: 100%;
           height: 80vh;
           margin: auto;
         }
 
-        #menu_wrap {
-          position: relative;
-          width: 100%;
-          height: 80vh;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          width: 10rem;
-          padding: 5px;
-          z-index: 1;
-          font-size: 12px;
-        }
+        // #menu_wrap {
+        //   position: relative;
+        //   width: 100%;
+        //   top: 0;
+        //   left: 0;
+        //   bottom: 0;
+        //   width: 10rem;
+        //   padding: 5px;
+        //   z-index: 1;
+        //   font-size: 12px;
+        // }
        
 
         .item .info{
@@ -275,9 +274,10 @@ const KakaoMap = ({ searchPlace }) => {
           margin:0;
         }
 
-        li{
+        #placeList li{
           list-style:none;
         }
+
         .place_category{
           color: tomato;
         }
@@ -288,15 +288,15 @@ const KakaoMap = ({ searchPlace }) => {
           font-size:0.8rem;
         }
         
-        a{
-          text-deoration: none;
+        .info a{
+          text-decoration: none;
           color: black;
         }
 
-        ul{
-          padding:0;
-          margin:0;
-        }
+        // ul{
+        //   padding:0;
+        //   margin:0;
+        // }
 
       `}</style>
     </div>

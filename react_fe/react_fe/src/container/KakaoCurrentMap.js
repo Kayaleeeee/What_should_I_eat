@@ -238,10 +238,10 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           color: black;
         }
 
-        ul {
-          padding: 0;
-          margin: 0;
-        }
+        // ul {
+        //   padding: 0;
+        //   margin: 0;
+        // }
       `}</style>
     </div>
   );
