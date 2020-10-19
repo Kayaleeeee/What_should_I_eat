@@ -142,6 +142,11 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           font-size: 1rem;
         }
 
+        .markerBasic a{
+          text-decoration: none;
+          color:black;
+        }
+
         .searchPlace {
           display: flex;
           margin-bottom: 10px;
@@ -152,10 +157,8 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           position: absolute;
           width: 18em;
           top: 5%;
-          // left: 1%;
           z-index: 2;
           margin-top: 4%;
-          // border: solid 1px #b1b1b1;
           padding: 0.3rem;
           // border-radius:20px;
           // background-color: rgba( 255, 255, 255, 0.7 );
@@ -184,7 +187,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           margin: 10px 0 30px 10px;
           padding: 5px;
           overflow-y: auto;
-          // background: rgba(255, 255, 255, 0.7);
           z-index: 1;
           font-size: 12px;
           border-radius: 10px;
@@ -211,7 +213,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           margin: 0;
           font-size: 1rem;
           padding-bottom: 0.2rem;
-          // background-color:black;
           color: white;
         }
 
@@ -223,6 +224,8 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
         li {
           list-style: none;
         }
+
+
         .place_category {
           color: tomato;
         }
@@ -233,15 +236,17 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           font-size: 0.8rem;
         }
 
-        a {
-          text-deoration: none;
+        .info a {
+          text-decoration: none;
           color: black;
         }
 
-        // ul {
-        //   padding: 0;
-        //   margin: 0;
-        // }
+        .info a:hover {
+          // text-decoration: none;
+          transition:0.3s;
+          color: gray;
+        }
+
       `}</style>
     </div>
   );

@@ -10,7 +10,7 @@ const KakaoMap = ({ searchPlace }) => {
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 2,
+      level: 4,
     };
 
     const map = new kakao.maps.Map(container, options);
@@ -51,7 +51,8 @@ const KakaoMap = ({ searchPlace }) => {
           });
   
       marker.setMap(map); // 지도 위에 마커를 표출합니다
-      markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+      setMarkers([...markers, marker ])
+      //markers.push(marker);  // 배열에 생성된 마커를 추가합니다
   
       return marker;
   }
@@ -65,9 +66,6 @@ const KakaoMap = ({ searchPlace }) => {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
         let bounds = new kakao.maps.LatLngBounds();
-        if(data.length <1){
-          alert("검색하신 장소가 없습니다. ")
-        }
 
         displayPlaces(data);
         for (let i = 0; i < data.length; i++) {
@@ -75,6 +73,7 @@ const KakaoMap = ({ searchPlace }) => {
           // console.log(data[i]);
           displayMarker(data[i]);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        
         }
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정
@@ -84,12 +83,11 @@ const KakaoMap = ({ searchPlace }) => {
         alert('검색 결과가 존재하지 않습니다.');
         return;
 
-    } else if (status === kakao.maps.services.Status.ERROR) {
+      } else if (status === kakao.maps.services.Status.ERROR) {
 
         alert('검색 결과 중 오류가 발생했습니다.');
         return;
-
-    }
+        }
     }
 
     function displayMarker(place) {
@@ -99,10 +97,9 @@ const KakaoMap = ({ searchPlace }) => {
         position: new kakao.maps.LatLng(place.y, place.x),
       });
 
-      console.log(place)
+      // console.log(place)
       // 마커에 클릭이벤트를 등록
       kakao.maps.event.addListener(marker, "mouseover", function () {
-
         infowindow.setContent(
           //여기에 URL등록 가능//
           
@@ -111,6 +108,15 @@ const KakaoMap = ({ searchPlace }) => {
         infowindow.open(map, marker);
       });
     }
+
+        // 인포윈도우에 장소명을 표시
+        function displayInfowindow(marker, title) {
+          var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+    
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+    
 
     // 검색결과 항목을 Element로 반환하는 함수
     function getListItem(index, places) {
@@ -157,17 +163,34 @@ const KakaoMap = ({ searchPlace }) => {
       removeAllChildNods(placesList);
       removeMarker();
 
-      if(place.length<1){
-        alert("no place")
-        return;
-      }
-
       for (let i = 0; i < place.length; i++) {
-        let placePositon = new kakao.maps.LatLng(place[i].y, place[i].x),
-        bounds = new kakao.maps.LatLngBounds();
-  
+        let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
+        bounds = new kakao.maps.LatLngBounds(),
+        marker = addMarker(placePosition, i);
+
         let placeItem = getListItem(i, place[i]);
-        bounds.extend(placePositon);
+
+
+        bounds.extend(placePosition);
+
+        (function (marker, title) {
+          kakao.maps.event.addListener(marker, "mouseover", function () {
+            displayInfowindow(marker, title);
+          });
+
+          kakao.maps.event.addListener(marker, "mouseout", function () {
+            infowindow.close();
+          });
+
+          placeItem.onmouseover = function () {
+            displayInfowindow(marker, title);
+          };
+
+          placeItem.onmouseout = function () {
+            infowindow.close();
+          };
+        })(marker, place[i].place_name);
+
         fragment.appendChild(placeItem);
       }
       placesList.appendChild(fragment);
@@ -189,6 +212,13 @@ const KakaoMap = ({ searchPlace }) => {
         .markerBasic {
           padding: 5px;
           font-size: 1rem;
+          display:flex;
+        }
+
+        .markerBasic a{
+          text-decoration:none;
+          color: black;
+          text-align:center;
         }
 
         .searchPlace {
@@ -291,6 +321,12 @@ const KakaoMap = ({ searchPlace }) => {
         .info a{
           text-decoration: none;
           color: black;
+        }
+
+        .info a:hover{
+          text-decoration: none;
+          color: gray;
+          transition:0.3s;
         }
 
         // ul{
