@@ -10,7 +10,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     const options = {
       center: new kakao.maps.LatLng(lat, long),
-      level: 2,
+      level: 4,
     };
 
     const map = new kakao.maps.Map(container, options);
@@ -35,6 +35,32 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
         }
       }
 
+      function addMarker(position, idx, title) {
+        var imageSrc =
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
+          imgOptions = {
+            spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+            spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          },
+          markerImage = new kakao.maps.MarkerImage(
+            imageSrc,
+            imageSize,
+            imgOptions
+          ),
+          marker = new kakao.maps.Marker({
+            position: position, // 마커의 위치
+            image: markerImage,
+          });
+
+        marker.setMap(map); // 지도 위에 마커를 표출합니다
+        setMarkers([...markers, marker]);
+        //markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
+        return marker;
+      }
+
       // 키워드 검색 완료 시 호출되는 콜백함수
       function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
@@ -51,6 +77,12 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
 
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정
           map.setBounds(bounds);
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+          alert("검색 결과가 존재하지 않습니다.");
+          return;
+        } else if (status === kakao.maps.services.Status.ERROR) {
+          alert("검색 결과 중 오류가 발생했습니다.");
+          return;
         }
       }
 
@@ -61,16 +93,26 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           position: new kakao.maps.LatLng(place.y, place.x),
         });
 
+        // console.log(place)
         // 마커에 클릭이벤트를 등록
         kakao.maps.event.addListener(marker, "mouseover", function () {
           infowindow.setContent(
             //여기에 URL등록 가능//
-            `<div class="markerBasic"><a href=${place.url}>` +
+
+            `<div class="markerBasic"><a href=${place.place_url} target="_blank">` +
               place.place_name +
               "</a></div>"
           );
           infowindow.open(map, marker);
         });
+      }
+
+      // 인포윈도우에 장소명을 표시
+      function displayInfowindow(marker, title) {
+        var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
       }
 
       // 검색결과 항목을 Element로 반환하는 함수
@@ -116,137 +158,173 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
         removeAllChildNods(placesList);
         removeMarker();
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < place.length; i++) {
+          let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
+            bounds = new kakao.maps.LatLngBounds(),
+            marker = addMarker(placePosition, i);
+
           let placeItem = getListItem(i, place[i]);
+
+          bounds.extend(placePosition);
+
+          (function (marker, title) {
+            kakao.maps.event.addListener(marker, "mouseover", function () {
+              displayInfowindow(marker, title);
+            });
+
+            kakao.maps.event.addListener(marker, "mouseout", function () {
+              infowindow.close();
+            });
+
+            placeItem.onmouseover = function () {
+              displayInfowindow(marker, title);
+            };
+
+            placeItem.onmouseout = function () {
+              infowindow.close();
+            };
+          })(marker, place[i].place_name);
+
           fragment.appendChild(placeItem);
         }
-
-        console.log(fragment);
         placesList.appendChild(fragment);
       }
     }
   }, [searchPlace]);
 
   return (
-    <div className="map_wrap">
+    <div id="map_wrap">
       <div id="map"></div>
       {/* <div className=""></div> */}
       <div className="placeList_container">
-        {" "}
-        <ul id="placeList" className="bg_white"></ul>
+        <h3 className="placeList_title">음식점 리스트</h3>{" "}
+        <div id="placeList"></div>
       </div>
 
       <style jsx>{`
-        .markerBasic {
-          padding: 5px;
-          font-size: 1rem;
-        }
+      .markerBasic {
+        padding: 5px;
+        font-size: 1rem;
+        display: flex;
+      }
 
-        .markerBasic a{
-          text-decoration: none;
-          color:black;
-        }
+      .markerBasic a {
+        text-decoration: none;
+        color: black;
+        text-align: center;
+      }
 
-        .searchPlace {
-          display: flex;
-          margin-bottom: 10px;
-          justify-content: center;
-        }
+      .searchPlace {
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: center;
+      }
 
-        #placeList {
-          position: absolute;
-          width: 18em;
-          top: 5%;
-          z-index: 2;
-          margin-top: 4%;
-          padding: 0.3rem;
-          // border-radius:20px;
-          // background-color: rgba( 255, 255, 255, 0.7 );
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-        }
+      #placeList {
+        width: 18rem;
+        padding: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
 
-        .placeList_container {
-          width: 5em;
-          overflow: scroll;
-        }
+      .placeList_title {
+        text-align: center;
+        margin: auto;
+        width: 95%;
+        border-radius: 10px 10px 0 0;
+        padding: 0.5rem;
+        background: black;
+        color: white;
+      }
 
-        #map {
-          width: 100hw;
-          height: 80vh;
-          margin: auto;
-        }
+      .placeList_container {
+        width: 19rem;
+        height: 83vh;
+        position: absolute;
+        z-index: 2;
+        margin-top: 4%;
+        margin-left: 0.5%;
+        top: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
 
-        #menu_wrap {
-          position: relative;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          width: 10rem;
-          margin: 10px 0 30px 10px;
-          padding: 5px;
-          overflow-y: auto;
-          z-index: 1;
-          font-size: 12px;
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
-        }
+      #map {
+        width: 100%;
+        height: 80vh;
+        margin: auto;
+      }
 
-        .item .info {
-          background: rgba(255, 255, 255, 0.7);
-          // padding: .5rem;
-          margin: 0.1rem;
-          height: 4rem;
-          display: flex;
-          flex-direction: column;
-          border: 1px solid black;
-          justify-content: center;
-          align-items: center;
-          border-radius: 10px;
-          // background: lightgray;
-        }
+      // #menu_wrap {
+      //   position: relative;
+      //   width: 100%;
+      //   top: 0;
+      //   left: 0;
+      //   bottom: 0;
+      //   width: 10rem;
+      //   padding: 5px;
+      //   z-index: 1;
+      //   font-size: 12px;
+      // }
 
-        h5 {
-          padding: 0;
-          margin: 0;
-          font-size: 1rem;
-          padding-bottom: 0.2rem;
-          color: white;
-        }
+      .item .info {
+        background: rgba(255, 255, 255, 0.7);
+        // padding: .5rem;
+        margin: 0.1rem;
+        height: 4rem;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        // background: lightgray;
+      }
 
-        h6 {
-          padding: 0;
-          margin: 0;
-        }
+      h5 {
+        padding: 0;
+        margin: 0;
+        font-size: 1rem;
+        padding-bottom: 0.2rem;
+        // background-color:black;
+        color: white;
+      }
 
-        li {
-          list-style: none;
-        }
+      h6 {
+        padding: 0;
+        margin: 0;
+      }
 
+      #placeList li {
+        list-style: none;
+      }
 
-        .place_category {
-          color: tomato;
-        }
+      .place_category {
+        color: tomato;
+      }
 
-        .place_address {
-          color: gray;
-          padding-top: 0.3rem;
-          font-size: 0.8rem;
-        }
+      .place_address {
+        color: gray;
+        padding-top: 0.3rem;
+        font-size: 0.8rem;
+      }
 
-        .info a {
-          text-decoration: none;
-          color: black;
-        }
+      .info a {
+        text-decoration: none;
+        color: black;
+      }
 
-        .info a:hover {
-          // text-decoration: none;
-          transition:0.3s;
-          color: gray;
-        }
+      .info a:hover {
+        text-decoration: none;
+        color: gray;
+        transition: 0.3s;
+      }
 
+      // ul{
+      //   padding:0;
+      //   margin:0;
+      // }
       `}</style>
     </div>
   );
