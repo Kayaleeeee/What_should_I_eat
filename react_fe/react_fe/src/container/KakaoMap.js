@@ -52,8 +52,6 @@ const KakaoMap = ({ searchPlace }) => {
   
       marker.setMap(map); // 지도 위에 마커를 표출합니다
       setMarkers([...markers, marker ])
-      //markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-  
       return marker;
   }
   
