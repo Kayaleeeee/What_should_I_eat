@@ -1,9 +1,27 @@
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 
 const { kakao } = window;
-
+Modal.setAppElement("#root");
+const customStyles = {
+  content: {
+    //overlay: {zIndex: 1000},
+    width: '19rem',
+    height: '83vh',
+    //position: 'absolute',
+    //overlay: {zIndex: '3'},
+  },
+};
 const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
   const [markers, setMarkers] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [url, setURL] = useState("");
+  function openModal() {
+    setModalOpen(true);
+  }
+  function closeModal() {
+    setModalOpen(false);
+  }
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -147,6 +165,10 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
 
         el.innerHTML = itemStr;
         el.className = "item";
+        el.onclick = () => {
+          setURL(places.place_url);
+          isModalOpen ? closeModal() : openModal();
+        };
 
         return el;
       }
@@ -200,131 +222,153 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
         <div id="placeList"></div>
       </div>
+      <div className="placeInfo_container">
+        {<Modal
+          isOpen={isModalOpen}
+          //onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+        >
+          <iframe src={url} 
+           style={{width: "100vw", height: "100vh", zIndex: "999999"}}/>
+          <button onClick={closeModal}>x</button>
+        </Modal>}
+      </div>
 
       <style jsx>{`
-      .markerBasic {
-        padding: 5px;
-        font-size: 1rem;
-        display: flex;
-      }
+        .markerBasic {
+          padding: 5px;
+          font-size: 1rem;
+          display: flex;
+        }
 
-      .markerBasic a {
-        text-decoration: none;
-        color: black;
-        text-align: center;
-      }
+        .markerBasic a {
+          text-decoration: none;
+          color: black;
+          text-align: center;
+        }
 
-      .searchPlace {
-        display: flex;
-        margin-bottom: 10px;
-        justify-content: center;
-      }
+        .searchPlace {
+          display: flex;
+          margin-bottom: 10px;
+          justify-content: center;
+        }
 
-      #placeList {
-        width: 18rem;
-        padding: 0.3rem;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
+        #placeList {
+          width: 18rem;
+          padding: 0.3rem;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        }
 
-      .placeList_title {
-        text-align: center;
-        margin: auto;
-        width: 95%;
-        border-radius: 10px 10px 0 0;
-        padding: 0.5rem;
-        background: black;
-        color: white;
-      }
+        .placeList_title {
+          text-align: center;
+          margin: auto;
+          width: 95%;
+          border-radius: 10px 10px 0 0;
+          padding: 0.5rem;
+          background: black;
+          color: white;
+        }
 
-      .placeList_container {
-        width: 19rem;
-        height: 83vh;
-        position: absolute;
-        z-index: 2;
-        margin-top: 4%;
-        margin-left: 0.5%;
-        top: 0;
-        overflow-y: scroll;
-        overflow-x: hidden;
-      }
+        .placeList_container {
+          width: 19rem;
+          height: 83vh;
+          position: absolute;
+          z-index: 2;
+          margin-top: 4%;
+          margin-left: 0.5%;
+          top: 0;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
 
-      #map {
-        width: 100%;
-        height: 80vh;
-        margin: auto;
-      }
+        .iframe {
+          width: 19rem;
+          height: 83vh;
+        }
 
-      // #menu_wrap {
-      //   position: relative;
-      //   width: 100%;
-      //   top: 0;
-      //   left: 0;
-      //   bottom: 0;
-      //   width: 10rem;
-      //   padding: 5px;
-      //   z-index: 1;
-      //   font-size: 12px;
-      // }
+        .placeInfo_container {
+     
+        }
 
-      .item .info {
-        background: rgba(255, 255, 255, 0.7);
-        // padding: .5rem;
-        margin: 0.1rem;
-        height: 4rem;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid black;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        // background: lightgray;
-      }
+        #map {
+          width: 100%;
+          height: 80vh;
+          margin: auto;
+        }
 
-      h5 {
-        padding: 0;
-        margin: 0;
-        font-size: 1rem;
-        padding-bottom: 0.2rem;
-        // background-color:black;
-        color: white;
-      }
+        // #menu_wrap {
+        //   position: relative;
+        //   width: 100%;
+        //   top: 0;
+        //   left: 0;
+        //   bottom: 0;
+        //   width: 10rem;
+        //   padding: 5px;
+        //   z-index: 1;
+        //   font-size: 12px;
+        // }
 
-      h6 {
-        padding: 0;
-        margin: 0;
-      }
+        .item .info {
+          background: rgba(255, 255, 255, 0.7);
+          // padding: .5rem;
+          margin: 0.1rem;
+          height: 4rem;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid black;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+          // background: lightgray;
+        }
 
-      #placeList li {
-        list-style: none;
-      }
+        h5 {
+          padding: 0;
+          margin: 0;
+          font-size: 1rem;
+          padding-bottom: 0.2rem;
+          // background-color:black;
+          color: white;
+        }
 
-      .place_category {
-        color: tomato;
-      }
+        h6 {
+          padding: 0;
+          margin: 0;
+        }
 
-      .place_address {
-        color: gray;
-        padding-top: 0.3rem;
-        font-size: 0.8rem;
-      }
+        #placeList li {
+          list-style: none;
+          cursor: pointer;
+        }
 
-      .info a {
-        text-decoration: none;
-        color: black;
-      }
+        .place_category {
+          color: tomato;
+        }
 
-      .info a:hover {
-        text-decoration: none;
-        color: gray;
-        transition: 0.3s;
-      }
+        .place_address {
+          color: gray;
+          padding-top: 0.3rem;
+          font-size: 0.8rem;
+        }
 
-      // ul{
-      //   padding:0;
-      //   margin:0;
-      // }
+        .info a {
+          text-decoration: none;
+          color: black;
+        }
+
+        .info a:hover {
+          text-decoration: none;
+          color: gray;
+          transition: 0.3s;
+        }
+
+        // ul{
+        //   padding:0;
+        //   margin:0;
+        // }
       `}</style>
     </div>
   );
