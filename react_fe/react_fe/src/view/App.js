@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import Random from "../container/Random";
 import KakaoSearchCurrent from "../container/KakaoSearchCurrent";
 import KakaoSearchRandom from "../container/KakaoSearchRandom";
+import KakaoSearch from "../container/KakaoSearch";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/random" component={Random} />
           <Route path="/currentLocation" component={KakaoSearchCurrent} />
           <Route path="/currentLocationRandom" component={KakaoSearchRandom} />
+          <Route path="/searchLocation" component={KakaoSearch} />
         </Switch>
       </main>
       </div>

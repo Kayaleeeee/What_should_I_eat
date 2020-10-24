@@ -6,18 +6,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 const KakaoSearch = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
-  const [error, setError] = useState(null);
   const menu = "맛집";
-
-  const onChange = ({ coords }) => {
-    setPosition({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
-    });
-  };
-  const onError = (error) => {
-    setError(error.message);
-  };
 
   const searchPlace = () => {
     const latLng = "x=" + position.longitude + "&y=" + position.latitude;
@@ -37,19 +26,17 @@ const KakaoSearch = () => {
   };
 
   useEffect(() => {
-    const geo = navigator.geolocation;
-    const options = {
-      enableHighAccuracy: false,
-      timeout: 5000,
-      maximumAge: 0,
-    };
-    if (!geo) {
-      setError("위치 정보 수집이 지원되지 않는 브라우저입니다");
-      alert(error);
-      return;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setPosition({latitude: position.coords.latitude, longitude: position.coords.longitude})
+        console.log(position.coords.latitude, position.coords.longitude);
+      });
+    } else {
+      setPosition(33.450701, 126.570667);
+      alert("위치 정보를 받아올 수 없습니다");
     }
-    const watcher = geo.watchPosition(onChange, onError, options);
   }, []);
+  
   useEffect(() => {
     searchPlace();
   }, [position]);

@@ -17,10 +17,6 @@ const Nav = () => {
           <Link to="/about">About</Link>
         </li>
         &nbsp;|&nbsp;
-        <li>
-          <Link to="/currentLocation">내 위치 기반 추천</Link>
-        </li>
-        &nbsp;|&nbsp;
         <li>Menu2</li>
       </ul>
       <style jsx>{`
