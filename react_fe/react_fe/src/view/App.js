@@ -35,6 +35,15 @@ function App() {
           overflow:hidden;
         }
 
+        // main{
+        //   width: 90%;
+        //   height: 85vh;
+        //   margin: auto;
+        //   border-radius: 30px;
+        //   border: 8px solid black;
+        //   overflow: hidden;
+        // }
+        
         nav{
           position: fixed;
           top:0;

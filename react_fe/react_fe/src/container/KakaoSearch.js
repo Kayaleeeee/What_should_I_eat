@@ -16,7 +16,8 @@ const KakaoSearch = () => {
   };
 
   return (
-    <>
+     <div className="outline">
+    <div className="container">>
       <form className="inputForm" onSubmit={handleSubmit}>
         <input
           placeholder="검색할 장소를 입력해주세요."
@@ -26,7 +27,7 @@ const KakaoSearch = () => {
         <button type="submit"><h5 className="search_icon">🔎</h5></button>
       </form>
       <KakaoMap searchPlace={place} />
-
+    </div>
       <style jsx>{`
         .inputForm {
           margin: 1rem auto;
@@ -34,6 +35,22 @@ const KakaoSearch = () => {
           width: 30rem;
        
         }
+
+        .outline {
+          margin: 0;
+          padding: 2rem;
+        }
+
+        .container {
+          //   background-color: crimson;
+          width: 90%;
+          height: 85vh;
+          margin: auto;
+          border-radius: 30px;
+          border: 8px solid black;
+          overflow: hidden;
+        }
+        
 
         input {
           width: 25rem;
@@ -64,7 +81,7 @@ const KakaoSearch = () => {
           font-size: 1rem;
         }
       `}</style>
-    </>
+    </div>
   );
 };
 

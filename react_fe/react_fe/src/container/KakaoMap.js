@@ -1,9 +1,30 @@
 import React, { useEffect, useState } from "react";
+import PlaceInfo from "./PlaceInfo";
+
 
 const { kakao } = window;
 
 const KakaoMap = ({ searchPlace }) => {
-  const [markers, setMarkers] = useState([]);
+   const [markers, setMarkers] = useState([]);
+   const [place_i, setPlace_i]= useState("");
+
+   const selectPlace = (place)=>{
+    setPlace_i(place);
+    
+    console.log(place);
+    console.log(place_i);
+  
+  }
+
+  const onSortDis=()=>{
+
+  }
+
+  const onSortPop =()=>{
+    
+  }
+   
+
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -71,7 +92,6 @@ const KakaoMap = ({ searchPlace }) => {
         displayPlaces(data);
         for (let i = 0; i < data.length; i++) {
           //URL받아오기 성공
-          // console.log(data[i]);
           displayMarker(data[i]);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
@@ -94,7 +114,7 @@ const KakaoMap = ({ searchPlace }) => {
         position: new kakao.maps.LatLng(place.y, place.x),
       });
 
-      // console.log(place)
+
       // 마커에 클릭이벤트를 등록
       kakao.maps.event.addListener(marker, "mouseover", function () {
         infowindow.setContent(
@@ -105,6 +125,12 @@ const KakaoMap = ({ searchPlace }) => {
             "</a></div>"
         );
         infowindow.open(map, marker);
+      });
+
+      kakao.maps.event.addListener(marker, "click", function () {
+        
+        selectPlace(place)
+  
       });
     }
 
@@ -124,7 +150,7 @@ const KakaoMap = ({ searchPlace }) => {
           (index + 1) +
           '"></span>' +
           '<div class="info">' +
-          "   <h5>" +
+          "<h5>" +
           "<a href= " +
           places.place_url +
           " target='_blank'>" +
@@ -134,18 +160,15 @@ const KakaoMap = ({ searchPlace }) => {
 
       if (places.road_address_name) {
         itemStr +=
-          "    <span><h6 class='place_address'> " +
+          "<span><h6 class='place_address'> " +
           places.road_address_name +
           "</h6></span>";
       } else {
         itemStr +=
-          "    <span><h6 class='place_address'> " +
+          "<span><h6 class='place_address'> " +
           places.address_name +
           "</h6></span>";
       }
-
-      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
-
       el.innerHTML = itemStr;
       el.className = "item";
 
@@ -192,20 +215,57 @@ const KakaoMap = ({ searchPlace }) => {
     }
   }, [searchPlace]);
 
+
+
   return (
     <div id="map_wrap">
       <div id="map"></div>
-      {/* <div className=""></div> */}
       <div className="placeList_container">
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
-        <div id="placeList"></div>
+        <div className="cate"><p onClick={onSortPop}>인기순</p> <p onClick={onSortDis}>거리순</p></div>
+        <div id="placeList" ></div>
       </div>
 
+      <PlaceInfo src={123}/>
       <style jsx>{`
+
+      .cate{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        // justify-content:flex-end;
+      }
+
+      .cate p {
+        font-weigh:light;
+        background: #f3895a;
+        margin:.5rem .2rem 0 0.2rem ;
+        text-align:center;
+        padding:.2rem 0.5rem;
+        color:white;
+        font-size:.9rem;
+        border-radius:3px;
+  
+      }
+
+      .cate p:hover {
+        cursor: pointer;
+        background:#c7724d;
+      }
+
         .markerBasic {
           padding: 5px;
           font-size: 1rem;
           display: flex;
+        }
+
+        iframe{
+          position:absolute;
+          // z-index: 9999;
+          top:50%;
+          width: 50%;
+          height: 50%;
+          right:10%;
         }
 
         .markerBasic a {
