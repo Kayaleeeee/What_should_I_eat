@@ -3,7 +3,7 @@ import KakaoCurrentMap from "./KakaoCurrentMap";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const KakaoSearch = () => {
+const KakaoSearchCurrent = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
   const menu = "맛집";
@@ -30,10 +30,12 @@ const KakaoSearch = () => {
       navigator.geolocation.getCurrentPosition(function (position) {
         setPosition({latitude: position.coords.latitude, longitude: position.coords.longitude})
         console.log(position.coords.latitude, position.coords.longitude);
-      });
+      }, err => {
+        //alert("일시적으로 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.")
+      }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 0});
     } else {
       setPosition(33.450701, 126.570667);
-      alert("위치 정보를 받아올 수 없습니다");
+      alert("위치 정보를 지원하지 않는 브라우저입니다.");
     }
   }, []);
   
@@ -54,7 +56,7 @@ const KakaoSearch = () => {
             searchPlace={place}
             lat={position.latitude}
             long={position.longitude}
-            menu={menu}
+            isRandom={false}
           />
         )}
       </div>
@@ -90,4 +92,4 @@ const KakaoSearch = () => {
   );
 };
 
-export default KakaoSearch;
+export default KakaoSearchCurrent;

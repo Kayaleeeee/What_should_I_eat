@@ -29,13 +29,15 @@ const KakaoSearchRandom = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         setPosition({latitude: position.coords.latitude, longitude: position.coords.longitude})
-        console.log(position.coords.latitude, position.coords.longitude);
-      });
+      }, err => {
+        //alert("일시적으로 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.")
+      }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 0});
     } else {
       setPosition(33.450701, 126.570667);
-      alert("위치 정보를 받아올 수 없습니다");
+      alert("위치 정보를 지원하지 않는 브라우저입니다.");
     }
   }, []);
+
   useEffect(() => {
     searchPlace();
   }, [position]);
@@ -55,7 +57,7 @@ const KakaoSearchRandom = () => {
             searchPlace={place}
             lat={position.latitude}
             long={position.longitude}
-            menu={menu}
+            isRandom={true}
           />
         )}
       </div>
