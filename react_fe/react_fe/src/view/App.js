@@ -2,7 +2,6 @@ import React from "react";
 import Home from "./Home";
 import About from "./About";
 import Nav from "./Nav";
-import Random from "../container/Random";
 import KakaoSearchCurrent from "../container/KakaoSearchCurrent";
 import KakaoSearchRandom from "../container/KakaoSearchRandom";
 import KakaoSearch from "../container/KakaoSearch";
@@ -19,7 +18,6 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/random" component={Random} />
           <Route path="/currentLocation" component={KakaoSearchCurrent} />
           <Route path="/currentLocationRandom" component={KakaoSearchRandom} />
           <Route path="/searchLocation" component={KakaoSearch} />
