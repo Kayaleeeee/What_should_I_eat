@@ -3,7 +3,7 @@ import KakaoCurrentMap from "./KakaoCurrentMap";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const KakaoSearch = () => {
+const KakaoSearchRandom = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
   const menu = localStorage.getItem("randomMenu");
@@ -39,6 +39,8 @@ const KakaoSearch = () => {
   useEffect(() => {
     searchPlace();
   }, [position]);
+
+  
   return (
     <div className="outline">
       <div className="container">
@@ -89,4 +91,4 @@ const KakaoSearch = () => {
   );
 };
 
-export default KakaoSearch;
+export default KakaoSearchRandom;

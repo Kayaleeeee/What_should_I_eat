@@ -14,7 +14,7 @@ const customStyles = {
 };
 const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
   const [markers, setMarkers] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false); 
   const [url, setURL] = useState("");
   function openModal() {
     setModalOpen(true);
@@ -161,8 +161,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
             "</h6></span>";
         }
 
-        // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
-
         el.innerHTML = itemStr;
         el.className = "item";
         el.onclick = () => {
@@ -236,6 +234,8 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
       </div>
 
       <style jsx>{`
+
+        
         .markerBasic {
           padding: 5px;
           font-size: 1rem;

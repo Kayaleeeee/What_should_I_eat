@@ -6,22 +6,23 @@ const { kakao } = window;
 
 const KakaoMap = ({ searchPlace }) => {
    const [markers, setMarkers] = useState([]);
-   const [place_i, setPlace_i]= useState("");
+   const [place_list, setPlaceList] =useState([]);
+   const [url, setURL] = useState("");
+   const [show, setShow] = useState(false);
 
-   const selectPlace = (place)=>{
-    setPlace_i(place);
-    
-    console.log(place);
-    console.log(place_i);
-  
-  }
+   const showInfo=()=>{
+     setShow(false);
+   }
+
+
 
   const onSortDis=()=>{
+
 
   }
 
   const onSortPop =()=>{
-    
+
   }
    
 
@@ -81,8 +82,7 @@ const KakaoMap = ({ searchPlace }) => {
     }
 
     // 키워드 검색 완료 시 호출되는 콜백함수
-    function placesSearchCB(data, status, pagination) {
-      // console.log("data : " +data)
+    function placesSearchCB(data, status) {
 
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -90,6 +90,7 @@ const KakaoMap = ({ searchPlace }) => {
         let bounds = new kakao.maps.LatLngBounds();
 
         displayPlaces(data);
+
         for (let i = 0; i < data.length; i++) {
           //URL받아오기 성공
           displayMarker(data[i]);
@@ -127,11 +128,6 @@ const KakaoMap = ({ searchPlace }) => {
         infowindow.open(map, marker);
       });
 
-      kakao.maps.event.addListener(marker, "click", function () {
-        
-        selectPlace(place)
-  
-      });
     }
 
     // 인포윈도우에 장소명을 표시
@@ -171,7 +167,11 @@ const KakaoMap = ({ searchPlace }) => {
       }
       el.innerHTML = itemStr;
       el.className = "item";
-
+       el.onclick = () => {
+        setURL(places.place_url);
+        url === true ? setShow(url) : setShow(!url);
+        // console.log(url)
+      };
       return el;
     }
 
@@ -222,11 +222,11 @@ const KakaoMap = ({ searchPlace }) => {
       <div id="map"></div>
       <div className="placeList_container">
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
-        <div className="cate"><p onClick={onSortPop}>인기순</p> <p onClick={onSortDis}>거리순</p></div>
+        <div className="cate"><p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p></div>
         <div id="placeList" ></div>
       </div>
 
-      <PlaceInfo src={123}/>
+      <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
       <style jsx>{`
 
       .cate{
@@ -259,15 +259,7 @@ const KakaoMap = ({ searchPlace }) => {
           display: flex;
         }
 
-        iframe{
-          position:absolute;
-          // z-index: 9999;
-          top:50%;
-          width: 50%;
-          height: 50%;
-          right:10%;
-        }
-
+   
         .markerBasic a {
           text-decoration: none;
           color: black;

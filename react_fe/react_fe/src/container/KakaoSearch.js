@@ -17,7 +17,7 @@ const KakaoSearch = () => {
 
   return (
      <div className="outline">
-    <div className="container">>
+    <div className="container">
       <form className="inputForm" onSubmit={handleSubmit}>
         <input
           placeholder="검색할 장소를 입력해주세요."
