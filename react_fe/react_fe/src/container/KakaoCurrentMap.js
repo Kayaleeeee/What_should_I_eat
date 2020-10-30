@@ -1,23 +1,37 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import PlaceInfo from "./PlaceInfo";
+import Random from "./Random";
 
 const { kakao } = window;
 Modal.setAppElement("#root");
 const customStyles = {
   content: {
-    //overlay: {zIndex: 1000},
-    width: "19rem",
-    height: "83vh",
-    //position: 'absolute',
-    //overlay: {zIndex: '3'},
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "30rem",
+    height: "20rem",
   },
+  overlay: { zIndex: 1000 },
 };
-const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
+const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
   const [markers, setMarkers] = useState([]);
   const [place_list, setPlaceList] = useState([]);
   const [url, setURL] = useState("");
   const [show, setShow] = useState(false);
+  const [isReady, setIsReady] = useState(isRandom ? false : true);
+  const [modalIsOpen, setIsOpen] = useState(true);
+  const [randomMenu, setRandomMenu] = useState("맛집");
+  let categoryList = [];
+
+  function closeModal() {
+    setIsOpen(false);
+    setIsReady(true);
+  }
 
   const showInfo = () => {
     setShow(false);
@@ -41,9 +55,11 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
     const ps = new kakao.maps.services.Places();
     if (searchPlace !== "") {
       // 키워드로 장소를 검색
-      ps.keywordSearch(searchPlace + " " + menu, placesSearchCB);
+      ps.keywordSearch(searchPlace + " " + randomMenu, placesSearchCB);
+      console.log("ee", randomMenu);
 
       removeAllChildNods(document.getElementById("placeList"));
+
       function removeMarker() {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
@@ -152,6 +168,9 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
             places.place_name +
             "</a></h5>" +
             `<h6 class='place_category'>${places.category_name}</h6>`;
+        if (!categoryList.includes(places.category_name)) {
+          categoryList.push(places.category_name);
+        }
 
         if (places.road_address_name) {
           itemStr +=
@@ -211,24 +230,62 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
 
           fragment.appendChild(placeItem);
         }
+        let menu = categoryList[Math.floor(Math.random() * categoryList.length)];
+        menu = menu.split(">").pop();
+        setRandomMenu(menu);
         placesList.appendChild(fragment);
       }
     }
-  }, [searchPlace]);
+  }, [searchPlace, modalIsOpen]);
 
   return (
     <div id="map_wrap">
       <div id="map"></div>
+      {!isReady && (
+        <div className="modal">
+          <Modal
+            isOpen={modalIsOpen}
+            style={customStyles}
+          >
+          <Random
+            randomMenu={randomMenu}
+            closeModal={closeModal}
+            />
+          </Modal>
+        </div>
+      )}
       <div className="placeList_container">
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
-        <div className="cate">
-          <p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p>
-        </div>
-        <div id="placeList"></div>
+        <div className="cate"><p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p></div>
+        <div id="placeList" ></div>
       </div>
 
-      <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
+      <PlaceInfo url={url} show={show} showInfo={showInfo} />
       <style jsx>{`
+        .modal {
+          position: absolute;
+          z-index: 2000;
+        }
+
+        .modal_contents {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .modal_contents button {
+          margin-top: 80px;
+          border: solid 1px #0052cc;
+          border-radius: 20px;
+          height: 40px;
+          width: 200px;
+          font-size: 18px;
+          background-color: #ffffff;
+          color: #0052cc;
+          cursor: pointer;
+        }
+
         .cate {
           display: flex;
           flex-direction: row;
