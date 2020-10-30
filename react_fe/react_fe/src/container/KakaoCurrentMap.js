@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
+import PlaceInfo from "./PlaceInfo";
 
 const { kakao } = window;
 Modal.setAppElement("#root");
 const customStyles = {
   content: {
     //overlay: {zIndex: 1000},
-    width: '19rem',
-    height: '83vh',
+    width: "19rem",
+    height: "83vh",
     //position: 'absolute',
     //overlay: {zIndex: '3'},
   },
 };
 const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
   const [markers, setMarkers] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false); 
+  const [place_list, setPlaceList] = useState([]);
   const [url, setURL] = useState("");
-  function openModal() {
-    setModalOpen(true);
-  }
-  function closeModal() {
-    setModalOpen(false);
-  }
+  const [show, setShow] = useState(false);
+
+  const showInfo = () => {
+    setShow(false);
+  };
+
+  const onSortDis = () => {};
+
+  const onSortPop = () => {};
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -165,7 +169,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
         el.className = "item";
         el.onclick = () => {
           setURL(places.place_url);
-          isModalOpen ? closeModal() : openModal();
+          url === true ? setShow(url) : setShow(!url);
         };
 
         return el;
@@ -215,27 +219,39 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
   return (
     <div id="map_wrap">
       <div id="map"></div>
-      {/* <div className=""></div> */}
       <div className="placeList_container">
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
+        <div className="cate">
+          <p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p>
+        </div>
         <div id="placeList"></div>
       </div>
-      <div className="placeInfo_container">
-        {<Modal
-          isOpen={isModalOpen}
-          //onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-        >
-          <iframe src={url} 
-           style={{width: "100vw", height: "100vh", zIndex: "999999"}}/>
-          <button onClick={closeModal}>x</button>
-        </Modal>}
-      </div>
 
+      <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
       <style jsx>{`
+        .cate {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          // justify-content:flex-end;
+        }
 
-        
+        .cate p {
+          font-weigh: light;
+          background: #f3895a;
+          margin: 0.5rem 0.2rem 0 0.2rem;
+          text-align: center;
+          padding: 0.2rem 0.5rem;
+          color: white;
+          font-size: 0.9rem;
+          border-radius: 3px;
+        }
+
+        .cate p:hover {
+          cursor: pointer;
+          background: #c7724d;
+        }
+
         .markerBasic {
           padding: 5px;
           font-size: 1rem;
@@ -284,13 +300,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, menu }) => {
           overflow-x: hidden;
         }
 
-        .iframe {
-          width: 19rem;
-          height: 83vh;
-        }
-
         .placeInfo_container {
-     
         }
 
         #map {
