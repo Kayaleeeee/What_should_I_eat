@@ -29,8 +29,8 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
   let categoryList = [];
 
   function closeModal() {
-    setIsOpen(false);
     setIsReady(true);
+    setIsOpen(false);
   }
 
   const showInfo = () => {
@@ -228,9 +228,12 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
             };
           })(marker, place[i].place_name);
 
-          fragment.appendChild(placeItem);
+          if (isReady) {
+            fragment.appendChild(placeItem);
+          }
         }
-        let menu = categoryList[Math.floor(Math.random() * categoryList.length)];
+        let menu =
+          categoryList[Math.floor(Math.random() * categoryList.length)];
         menu = menu.split(">").pop();
         setRandomMenu(menu);
         placesList.appendChild(fragment);
@@ -243,21 +246,21 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
       <div id="map"></div>
       {!isReady && (
         <div className="modal">
-          <Modal
-            isOpen={modalIsOpen}
-            style={customStyles}
-          >
-          <Random
-            randomMenu={randomMenu}
-            closeModal={closeModal}
-            />
+          <Modal isOpen={modalIsOpen} style={customStyles}>
+            {randomMenu != "맛집" && (
+              <Random randomMenu={randomMenu} closeModal={closeModal} />
+            )}
           </Modal>
         </div>
       )}
       <div className="placeList_container">
-        <h3 className="placeList_title">음식점 리스트</h3>{" "}
-        <div className="cate"><p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p></div>
-        <div id="placeList" ></div>
+        {isReady && <h3 className="placeList_title">음식점 리스트</h3>}
+        {isReady && (
+          <div className="cate">
+            <p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p>
+          </div>
+        )}
+        <div id="placeList"></div>
       </div>
 
       <PlaceInfo url={url} show={show} showInfo={showInfo} />
