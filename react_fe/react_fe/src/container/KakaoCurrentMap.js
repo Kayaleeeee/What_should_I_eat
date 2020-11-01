@@ -365,7 +365,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
         #map {
           width: 100%;
-          height: 80vh;
+          height: 100vh;
           margin: auto;
         }
 
