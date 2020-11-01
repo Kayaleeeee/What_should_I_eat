@@ -8,16 +8,23 @@ const Nav = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        &nbsp;|&nbsp;
+
         <li>
-          <Link to="/currentLocationRandom">랜덤 추천 메뉴</Link>
+          <Link to="/currentLocationRandom">메뉴랜덤추천</Link>
         </li>
-        &nbsp;|&nbsp;
+
+        <li>
+          <Link to="/currentLocation">주변 뭐먹지</Link>
+        </li>
+
+        <li>
+          <Link to="/searchLocation">가서 뭐먹지</Link>
+        </li>
+
+
         <li>
           <Link to="/about">About</Link>
         </li>
-        &nbsp;|&nbsp;
-        <li>Menu2</li>
       </ul>
       <style jsx>{`
 
@@ -45,6 +52,10 @@ const Nav = () => {
         }
         .nav_container a:hover {
           color: #b1b1b1;
+        }
+
+        .nav_container li {
+          font-weight: border;
         }
 
       `}</style>

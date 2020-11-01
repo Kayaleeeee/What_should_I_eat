@@ -6,11 +6,12 @@ const { kakao } = window;
 
 const KakaoMap = ({ searchPlace }) => {
    const [markers, setMarkers] = useState([]);
-   const [place_list, setPlaceList] =useState([]);
+  //  const [place_list, setPlaceList] =useState([]);
    const [url, setURL] = useState("");
    const [show, setShow] = useState(false);
 
    const showInfo=()=>{
+     console.log(show)
      setShow(false);
    }
 
@@ -169,8 +170,10 @@ const KakaoMap = ({ searchPlace }) => {
       el.className = "item";
        el.onclick = () => {
         setURL(places.place_url);
-        url === true ? setShow(url) : setShow(!url);
-        // console.log(url)
+        console.log("click event")
+        console.log(url)
+        //url === true ? setShow(url) : setShow(!url);
+        url === true ? setShow(show) : setShow(!show);
       };
       return el;
     }
