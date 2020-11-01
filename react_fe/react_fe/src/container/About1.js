@@ -4,13 +4,13 @@ class About1 extends Component {
     return (
       <div id="About1">
         <div className="bg1txt">
-          <p>
-            궁극의 <br />
-            메뉴 추천 페이지
-          </p>
-        </div>
-        <div className="bg1map">
-          <p>지도 프리뷰</p>
+          <span className="bg1txt1">
+             세상 모두에게 주어진 하루 3 번의 과제<br/> 
+             </span>
+          <span className="bg1txt2">
+             " 오늘 뭐 먹지? "
+          </span>
+          
         </div>
       </div>
     );

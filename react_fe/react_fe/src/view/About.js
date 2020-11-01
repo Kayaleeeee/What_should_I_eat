@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-scroll";
 import About1 from "../container/About1.js";
 import About2 from "../container/About2.js";
-import About3 from "../container/About3.js";
 class About extends Component {
   render() {
     return (
@@ -11,7 +10,7 @@ class About extends Component {
           <span>오늘뭐먹지</span>
         </div>
         {/* LOGO */}
-
+{/* 
         <Link
           className="bg1a"
           activeClass="active"
@@ -22,7 +21,7 @@ class About extends Component {
           duration={500}
         >
           <div className="arrow arrow1"></div>
-        </Link>
+        </Link> */}
 
         {/* FIRST CARD */}
 
@@ -35,11 +34,12 @@ class About extends Component {
           // offset={-70}
           duration={500}
         >
+          <img src={require("../static/down-arrow (1).png")} className="arrow4"></img> 
           <div className="arrow arrow2"></div>
         </Link>
         {/* SECOND CARD */}
 
-        <Link
+        {/* <Link
           className="bg3a"
           activeClass="active"
           to="About3"
@@ -49,18 +49,22 @@ class About extends Component {
           duration={500}
         >
           <div className="arrow arrow3"></div>
-        </Link>
+        </Link> */}
         {/* THIRD CARD */}
         <About1 />
         <About2 />
-        <About3 />
+        
         <style jsx>{`
           #About {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Do Hyeon";
             color: white;
+            font-family: "Do Hyeon";
+          } 
+          @font-face {
+            font-family: "Do Hyeon";
+            src:url('${require("../fonts/DoHyeon-Regular.ttf")}') format("truetype");
           }
           body {
             //width: calc(100vw (100vw - 100%));
@@ -85,26 +89,38 @@ class About extends Component {
           #About1 {
             width: calc(100vw (100vw - 100%));
             height: 100vh;
-            background-image: url('${require("../static/about-bg1.jpg")}');
+            background-image: url('${require("../static/about-bg1(1).jpg")}');
             background-size: cover;
             background-repeat: no-repeat;
             display: flex;
+            justify-content: center;
             align-items: center;
           }
           #About1 .bg1txt {
             margin: 0 50px;
-            font-size: 70px;
-          }
-          .bg1map {
-            width: 300px;
-            height: 300px;
-            margin: 0 0 0 20%;
-            background-color: teal;
-            border-radius: 50px;
+            text-shadow: 2px 2px 2px rgba(1,1,1,0.5);
             display: flex;
+            flex-direction:column;
             align-items: center;
-            justify-content: center;
-            font-size: 30px;
+          }
+          
+          .bg1txt1 {
+            font-size:25px;
+          }
+          .bg1txt2 {
+            font-size:120px;
+          }
+          .bg2map {
+            width: 35%;
+            height: 45%;
+            margin: auto;
+            border-radius: 30px;
+            border: 8px solid black;
+            overflow: hidden;
+            background-image:url('${require("../static/mappreview.jpg")}');
+            background-attachment:fixed;
+            background-repeat:no-repeat;
+            background-size:cover;
           }
           #About2 {
             width: calc(100vw (100vw - 100%));
@@ -118,52 +134,30 @@ class About extends Component {
           #About2 .bg2txt {
             margin: 0 50px;
             font-size: 60px;
+            text-shadow: 2px 2px 2px rgba(1,1,1,0.5);
           }
-          #About3 {
-            width: calc(100vw (100vw - 100%));
-            height: 100vh;
-            background-image: url('${require("../static/about-bg3.jpg")}');
-            background-size: cover;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
+          @keyframes float {
+            0% {
+              transform: translatey(0px);
+            }
+            50% {
+              transform: translatey(-8px);
+            }
+            100% {
+              transform: translatey(0px);
+            }
           }
-          #About3 .bg3txt {
-            margin: 0 50px;
-            font-size: 60px;
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
+          .arrow4{
+            max-width:150px;
+            position: absolute;
+            top: 37%;
+            left: 42vw;
+            transform: translate(-50%, -50%);
+            animation: float 2.5s ease-in-out infinite;
           }
-          .prof {
-            width: 300px;
-            height: 300px;
-            border-radius: 40px;
-            background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
+          .arrow4:hover{
+            cursor:pointer;
           }
-          .arrow {
-            width: 13px;
-            height: 13px;
-            background-color: teal;
-            position: fixed;
-            border-radius: 50px;
-          }
-          .arrow1 {
-            right: 30px;
-            top: 47%;
-          }
-          .arrow2 {
-            right: 30px;
-            top: 50%;
-          }
-          .arrow3 {
-            right: 30px;
-            top: 53%;
-          }  
     `}</style>
       </div>
     );
