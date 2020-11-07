@@ -16,11 +16,12 @@ function App() {
       </nav>
       <main>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
+          {/* <Route path="/" exact component={Home} /> */}
+          <Route path="/" exact component={About} />
           <Route path="/currentLocation" component={KakaoSearchCurrent} />
           <Route path="/currentLocationRandom" component={KakaoSearchRandom} />
           <Route path="/searchLocation" component={KakaoSearch} />
+          <Route path="/whatToEat" exact component={Home} />
         </Switch>
       </main>
       </div>
@@ -29,18 +30,8 @@ function App() {
         #web_wrap{
           position:relative;
           width: 100wh;
-          // height:100vh;
           overflow:hidden;
         }
-
-        // main{
-        //   width: 90%;
-        //   height: 85vh;
-        //   margin: auto;
-        //   border-radius: 30px;
-        //   border: 8px solid black;
-        //   overflow: hidden;
-        // }
         
         nav{
           position: fixed;

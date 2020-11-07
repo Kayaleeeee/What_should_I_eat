@@ -277,7 +277,7 @@ const KakaoMap = ({ searchPlace }) => {
 
         #placeList {
           width: 18rem;
-          padding: 0.3rem;
+          padding-top: 0.3rem;
           display: flex;
           flex-direction: column;
           overflow: hidden;
@@ -298,7 +298,7 @@ const KakaoMap = ({ searchPlace }) => {
           height: 83vh;
           position: absolute;
           z-index: 2;
-          margin-top: 4%;
+          margin-top: 5%;
           margin-left: 0.5%;
           top: 0;
           overflow-y: scroll;

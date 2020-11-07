@@ -39,6 +39,7 @@ const KakaoSearch = () => {
         .outline {
           margin: 0;
           padding: 2rem;
+          padding-top:3rem;
         }
 
         .container {
