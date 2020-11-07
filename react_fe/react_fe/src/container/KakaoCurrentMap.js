@@ -41,6 +41,27 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
   const onSortPop = () => {};
 
+  const placeList = [];
+
+  function placeStruct(place) {
+    const placeInfo = place;
+    const placeUrl = place.place_url;
+  }
+
+  const placeRating = (placeUrl) => {
+    const request = require("request");
+    const cheerio = require("cheerio");
+    const url = placeUrl;
+    request(url, function (err, res, html) {
+      if (!err) {
+        const $ = cheerio.load(html);
+        const rate = $(".num_rate").text();
+        console.log("hehehe: ", rate);
+        return rate;
+      }
+    });
+  };
+
   useEffect(() => {
     const container = document.getElementById("map");
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -56,7 +77,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
     if (searchPlace !== "") {
       // 키워드로 장소를 검색
       ps.keywordSearch(searchPlace + " " + randomMenu, placesSearchCB);
-      console.log("ee", randomMenu);
 
       removeAllChildNods(document.getElementById("placeList"));
 
@@ -171,6 +191,11 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
         if (!categoryList.includes(places.category_name)) {
           categoryList.push(places.category_name);
         }
+        //const rate = placeRating(places.place_url);
+        //const place = placeStruct(places, rate);
+        //console.log("rate: ", rate);
+
+        //placeList.push(place);
 
         if (places.road_address_name) {
           itemStr +=
@@ -200,7 +225,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
         removeAllChildNods(placesList);
         removeMarker();
-
+        //place.sort(function (place1, place2) {});
         for (let i = 0; i < place.length; i++) {
           let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
             bounds = new kakao.maps.LatLngBounds(),

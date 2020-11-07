@@ -6,6 +6,18 @@ import ClipLoader from "react-spinners/ClipLoader";
 const KakaoSearchCurrent = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
+  const [error, setError] = useState(null);
+  
+  const onChange = ({coords}) => {
+    setPosition({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    });
+  };
+  const onError = (error) => {
+    setError(error.message);
+  };
+
   const menu = "맛집";
 
   const searchPlace = () => {
@@ -26,17 +38,39 @@ const KakaoSearchCurrent = () => {
   };
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setPosition({latitude: position.coords.latitude, longitude: position.coords.longitude})
-        console.log(position.coords.latitude, position.coords.longitude);
-      }, err => {
-        //alert("일시적으로 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.")
-      }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 0});
-    } else {
-      setPosition(33.450701, 126.570667);
-      alert("위치 정보를 지원하지 않는 브라우저입니다.");
+    const geo = navigator.geolocation;
+    if (!geo) {
+      setError('Geolocation is not supported');
+      return;
     }
+    const options = {
+      enableHighAccuracy: true, 
+      timeout: 5000,
+      maximumge: 0
+    };
+    const watcher = geo.watchPosition(onChange, onError, options);
+    //return () => geo.clearWatch(watcher);
+    //테스트용 코드
+    //여기서 결과 성공 확인 시, 해당 파트 지우고 KakaoCurrentMap & kakaoMap에서 작업
+    const request = require('request');
+    const cheerio = require('cheerio');
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+    const url = "https://place.map.kakao.com/60259859";
+    request(proxyUrl + url, function (err, res, html) {
+      if (!err) {
+        //console.log("scraping: " + res.body);
+        //console.log("html: ", html);
+          var $ = cheerio.load(html);
+          console.log("data: ", $('body').text());
+          $("body").each(function () {
+              var data = $(this);
+              //console.log("hh:" + data.text());
+          });
+      }
+      else {
+        console.log("error: ", err);
+      }
+  }, { mode: "no-cors"})
   }, []);
   
   useEffect(() => {
