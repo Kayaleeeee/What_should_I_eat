@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <div className="nav_container">
       <div className="logo">
-          <span>오늘뭐먹지</span>
+          <span> ✨ 오늘뭐먹지</span>
         </div>
 
       <ul id= "nav_ul">
