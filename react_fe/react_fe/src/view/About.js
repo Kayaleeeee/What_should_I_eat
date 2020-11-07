@@ -6,9 +6,10 @@ class About extends Component {
   render() {
     return (
       <div id="About">
-        <div className={"logo"}>
+        {/* <div className={"logo"}>
           <span>오늘뭐먹지</span>
-        </div>
+        </div> */}
+
         {/* LOGO */}
 {/* 
         <Link
@@ -55,6 +56,20 @@ class About extends Component {
         <About2 />
         
         <style jsx>{`
+
+            .nav_container a {
+              font-size: 1.2rem;
+              text-decoration: none;
+              color:white;
+            }
+
+            .nav_container a:hover {
+              color:red;
+            }
+            .nav_container a:visited{
+              color:white;
+            }
+
           #About {
             margin: 0;
             padding: 0;
@@ -78,14 +93,26 @@ class About extends Component {
             display: flex;
             flex-direction: column;
           }
+
+
+          // .logo {
+          //   font-size: 35px;
+          //   font-weight: lighter;
+          //   display: block;
+          //   position: fixed;
+          //   top: 50px;
+          //   left: 50px;
+          // }
+
+
           .logo {
             font-size: 35px;
             font-weight: lighter;
-            display: block;
-            position: fixed;
-            top: 50px;
-            left: 50px;
+            margin-top:2rem;
+            color:white;
+      
           }
+  
           #About1 {
             width: calc(100vw (100vw - 100%));
             height: 100vh;

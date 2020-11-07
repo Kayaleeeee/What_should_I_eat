@@ -63,12 +63,13 @@ class Home extends Component {
           .outline {
             margin: 0;
             padding: 2rem;
+            padding-top: 3rem;
             overflow:hidden;
           }
 
           .container {
             //   background-color: crimson;
-            width: 90%;
+            width: 95%;
             height: 85vh;
             margin: auto;
             border-radius: 30px;

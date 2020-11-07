@@ -4,10 +4,18 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <div className="nav_container">
-      <ul>
+      <div className="logo">
+          <span>오늘뭐먹지</span>
+        </div>
+
+      <ul id= "nav_ul">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">홈</Link>
         </li>
+{/* 
+        <li>
+          <Link to="/whatToEat">서비스 바로가기</Link>
+        </li> */}
 
         <li>
           <Link to="/currentLocationRandom">메뉴랜덤추천</Link>
@@ -22,29 +30,50 @@ const Nav = () => {
         </li>
 
 
-        <li>
+        {/* <li>
           <Link to="/about">About</Link>
-        </li>
+        </li> */}
       </ul>
       <style jsx>{`
+        .nav_container{
+          width:90%;
+          display:inline-flex;
+          overflow:hidden;
+          padding: 0.5rem;
+          align-items:center;
+          justify-content:space-between;
+        }
 
-        // .nav_container{
-        //   position:fixed;
-        //   top:0;
-        //   width:100%;
-        // }
+        @font-face {
+          font-family: "Do Hyeon";
+          src:url('${require("../fonts/DoHyeon-Regular.ttf")}') format("truetype");
+        }
+
+        #nav_ul{
+          padding:0;
+          margin:0;
+        }
+
+        .logo{
+          display:inline;
+          padding:0;
+          margin:0;
+          font-family: "Do Hyeon";
+          font-size:2rem;
+        }
 
         .nav_container ul {
-          // padding-top:.5rem;
+          font-family: "Do Hyeon";
+
           list-style: none;
           display: flex;
-          width: 90%;
-          justify-content: flex-end;
+           width: 35%;
+          justify-content: space-evenly;
         }
 
         .nav_container a {
-          font-size: 1rem;
-          padding: 0.5rem;
+          font-weight:lighter;
+          font-size:1.2rem;
           text-decoration: none;
         }
         .nav_container a:visited {

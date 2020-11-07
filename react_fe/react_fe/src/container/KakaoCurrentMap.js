@@ -288,7 +288,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           color: #0052cc;
           cursor: pointer;
         }
-
         .cate {
           display: flex;
           flex-direction: row;
@@ -332,7 +331,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
         #placeList {
           width: 18rem;
-          padding: 0.3rem;
+          padding-top: 0.3rem;
           display: flex;
           flex-direction: column;
           overflow: hidden;
@@ -353,7 +352,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           height: 83vh;
           position: absolute;
           z-index: 2;
-          margin-top: 4%;
+          margin-top: 5%;
           margin-left: 0.5%;
           top: 0;
           overflow-y: scroll;
