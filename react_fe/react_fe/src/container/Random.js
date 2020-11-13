@@ -71,7 +71,8 @@ const Random = ({randomMenu, closeModal}) => {
       else if (randomMenu.includes("스테이크") || randomMenu.includes("립")) {
         return "🥩";
       }
-      else if (randomMenu.includes("양식") || randomMenu.includes("파스타") || randomMenu.includes("스파게티")) {
+      else if (randomMenu.includes("양식") || randomMenu.includes("파스타") 
+      || randomMenu.includes("스파게티") || randomMenu.includes("이탈리안")) {
         return "🍝";
       }
       else if (randomMenu.includes("찌개") || randomMenu.includes("전골")) {
