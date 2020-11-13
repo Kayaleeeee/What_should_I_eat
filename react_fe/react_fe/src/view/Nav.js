@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <div className="nav_container">
-      <div className="logo">
-          <span> ✨ 오늘뭐먹지</span>
+      <Link to="whatToEat">
+        <div className="logo">
+          <span>✨ 오늘뭐먹지</span>
         </div>
+      </Link>
 
-      <ul id= "nav_ul">
+      <ul id="nav_ul">
         <li>
           <Link to="/">홈</Link>
         </li>
-{/* 
+        {/* 
         <li>
           <Link to="/whatToEat">서비스 바로가기</Link>
         </li> */}
@@ -29,37 +31,38 @@ const Nav = () => {
           <Link to="/searchLocation">가서 뭐먹지</Link>
         </li>
 
-
         {/* <li>
           <Link to="/about">About</Link>
         </li> */}
       </ul>
       <style jsx>{`
-        .nav_container{
-          width:90%;
-          display:inline-flex;
-          overflow:hidden;
+        .nav_container {
+          width: 90%;
+          display: inline-flex;
+          overflow: hidden;
           padding: 0.5rem;
-          align-items:center;
-          justify-content:space-between;
+          align-items: center;
+          justify-content: space-between;
         }
 
         @font-face {
           font-family: "Do Hyeon";
-          src:url('${require("../fonts/DoHyeon-Regular.ttf")}') format("truetype");
+          src: url("${require("../fonts/DoHyeon-Regular.ttf")}")
+            format("truetype");
         }
 
-        #nav_ul{
-          padding:0;
-          margin:0;
+        #nav_ul {
+          padding: 0;
+          margin: 0;
         }
 
-        .logo{
-          display:inline;
-          padding:0;
-          margin:0;
+        .logo {
+          display: inline;
+          padding: 0;
+          margin: 0;
           font-family: "Do Hyeon";
-          font-size:2rem;
+          font-size: 2rem;
+          cursor: pointer;
         }
 
         .nav_container ul {
@@ -67,13 +70,13 @@ const Nav = () => {
 
           list-style: none;
           display: flex;
-           width: 35%;
+          width: 35%;
           justify-content: space-evenly;
         }
 
         .nav_container a {
-          font-weight:lighter;
-          font-size:1.2rem;
+          font-weight: lighter;
+          font-size: 1.2rem;
           text-decoration: none;
         }
         .nav_container a:visited {
@@ -86,7 +89,6 @@ const Nav = () => {
         .nav_container li {
           font-weight: border;
         }
-
       `}</style>
     </div>
   );
