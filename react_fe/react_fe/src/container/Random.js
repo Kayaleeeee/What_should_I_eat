@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const Random = ({randomMenu, closeModal}) => {
   const [loading, setLoading] = useState(true);
@@ -13,7 +12,7 @@ const Random = ({randomMenu, closeModal}) => {
         <h1>오늘의 추천 메뉴는?</h1>
         <div className="randomMenu">
           {loading ? (
-            <ClipLoader size={150} color={"#123abc"} loading={loading} />
+            <img src={require("../static/food.gif")} alt="food image" />
           ) : (
             randomMenu
           )}
@@ -49,6 +48,9 @@ const Random = ({randomMenu, closeModal}) => {
         }
         h1 {
           text-align: center;
+        }
+        .randomMenu img {
+          width: 5rem;
         }
       `}</style>
     </div>
