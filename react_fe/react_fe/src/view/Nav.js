@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <div className="nav_container">
-      <Link to="whatToEat">
-        <div className="logo">
+      <div className="logo">
+        <Link to="whatToEat">
           <span>✨ 오늘뭐먹지</span>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       <ul id="nav_ul">
         <li>
@@ -63,6 +63,10 @@ const Nav = () => {
           font-family: "Do Hyeon";
           font-size: 2rem;
           cursor: pointer;
+        }
+
+        .logo span {
+          font-size: 2rem;
         }
 
         .nav_container ul {
