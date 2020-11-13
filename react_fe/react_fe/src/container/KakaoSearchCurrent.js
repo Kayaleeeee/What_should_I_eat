@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import KakaoCurrentMap from "./KakaoCurrentMap";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const KakaoSearchCurrent = () => {
   const [place, setPlace] = useState("");
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
-  
+
   const onChange = ({coords}) => {
     setPosition({
       latitude: coords.latitude,
@@ -40,39 +39,42 @@ const KakaoSearchCurrent = () => {
   useEffect(() => {
     const geo = navigator.geolocation;
     if (!geo) {
-      setError('Geolocation is not supported');
+      setError("Geolocation is not supported");
       return;
     }
     const options = {
-      enableHighAccuracy: true, 
+      enableHighAccuracy: true,
       timeout: 5000,
-      maximumge: 0
+      maximumAge: 0,
     };
     const watcher = geo.watchPosition(onChange, onError, options);
     //return () => geo.clearWatch(watcher);
     //테스트용 코드
     //여기서 결과 성공 확인 시, 해당 파트 지우고 KakaoCurrentMap & kakaoMap에서 작업
-    const request = require('request');
-    const cheerio = require('cheerio');
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+    const request = require("request");
+    const cheerio = require("cheerio");
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
     const url = "https://place.map.kakao.com/60259859";
-    request(proxyUrl + url, function (err, res, html) {
-      if (!err) {
-        //console.log("scraping: " + res.body);
-        //console.log("html: ", html);
+    request(
+      proxyUrl + url,
+      function (err, res, html) {
+        if (!err) {
+          //console.log("scraping: " + res.body);
+          //console.log("html: ", html);
           var $ = cheerio.load(html);
-          console.log("data: ", $('body').text());
+          console.log("data: ", $("body").text());
           $("body").each(function () {
-              var data = $(this);
-              //console.log("hh:" + data.text());
+            var data = $(this);
+            //console.log("hh:" + data.text());
           });
-      }
-      else {
-        console.log("error: ", err);
-      }
-  }, { mode: "no-cors"})
+        } else {
+          console.log("error: ", err);
+        }
+      },
+      { mode: "no-cors" }
+    );
   }, []);
-  
+
   useEffect(() => {
     searchPlace();
   }, [position]);
@@ -81,7 +83,7 @@ const KakaoSearchCurrent = () => {
       <div className="container">
         {!position.latitude && (
           <div className="loading">
-            <ClipLoader size={150} color={"#123abc"} />
+            <img src={require("../static/dish.png")} alt="dish" />
             <p>위치 정보를 받아오고 있습니다</p>
           </div>
         )}
@@ -98,7 +100,7 @@ const KakaoSearchCurrent = () => {
         .outline {
           margin: 0;
           padding: 2rem;
-          padding-top:3rem;
+          padding-top: 3rem;
         }
 
         .container {
@@ -121,6 +123,19 @@ const KakaoSearchCurrent = () => {
 
         p {
           margin-top: 50px;
+        }
+        .loading img {
+          width: 5rem;
+          animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
         }
       `}</style>
     </div>

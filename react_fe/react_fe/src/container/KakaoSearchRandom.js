@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import KakaoCurrentMap from "./KakaoCurrentMap";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const KakaoSearchRandom = () => {
   const [place, setPlace] = useState("");
@@ -48,7 +47,7 @@ const KakaoSearchRandom = () => {
       <div className="container">
         {!position.latitude && (
           <div className="loading">
-            <ClipLoader size={150} color={"#123abc"} />
+              <img src={require("../static/dish.png")} alt="dish"/>
             <p>위치 정보를 받아오고 있습니다</p>
           </div>
         )}
@@ -88,6 +87,20 @@ const KakaoSearchRandom = () => {
 
         p {
           margin-top: 50px;
+        }
+
+        .loading img {
+          width: 5rem;
+          animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
         }
       `}</style>
     </div>
