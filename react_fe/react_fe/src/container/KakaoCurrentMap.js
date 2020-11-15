@@ -346,6 +346,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           text-decoration: none;
           color: black;
           text-align: center;
+          width:150px;
         }
 
         .searchPlace {
@@ -393,17 +394,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           margin: auto;
         }
 
-        // #menu_wrap {
-        //   position: relative;
-        //   width: 100%;
-        //   top: 0;
-        //   left: 0;
-        //   bottom: 0;
-        //   width: 10rem;
-        //   padding: 5px;
-        //   z-index: 1;
-        //   font-size: 12px;
-        // }
 
         .item .info {
           background: rgba(255, 255, 255, 0.7);

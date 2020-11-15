@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PlaceInfo from "./PlaceInfo";
-
+import "./scss/kakaoMap.scss"
 
 const { kakao } = window;
 
@@ -122,7 +122,7 @@ const KakaoMap = ({ searchPlace }) => {
         infowindow.setContent(
           //여기에 URL등록 가능//
 
-          `<div class="markerBasic"><a href=${place.place_url} target="_blank">` +
+          `<div class="markerBasic"><a class="marker_title" href=${place.place_url} target="_blank">` +
             place.place_name +
             "</a></div>"
         );
@@ -285,158 +285,7 @@ const KakaoMap = ({ searchPlace }) => {
       <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
       <style jsx>{`
 
-      .cate{
-        display: flex;
-        flex-direction: row;
-        width:100%;
-        // justify-content:flex-end;
-      }
 
-      .cate p {
-        font-weigh:light;
-        background: #f3895a;
-        margin:.5rem .2rem 0 0.2rem ;
-        text-align:center;
-        padding:.2rem 0.5rem;
-        color:white;
-        font-size:.9rem;
-        border-radius:3px;
-  
-      }
-
-      .cate p:hover {
-        cursor: pointer;
-        background:#c7724d;
-      }
-
-        .markerBasic {
-          padding: 5px;
-          font-size: 1rem;
-          display: flex;
-        }
-
-   
-        .markerBasic a {
-          text-decoration: none;
-          color: black;
-          text-align: center;
-        }
-
-        .searchPlace {
-          display: flex;
-          margin-bottom: 10px;
-          justify-content: center;
-        }
-
-        #placeList {
-          width: 18rem;
-          padding-top: 0.3rem;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-        }
-
-        .place_name{
-          color:black;
-        }
-
-        .placeList_title {
-          text-align: center;
-          margin: auto;
-          width: 95%;
-          border-radius: 10px 10px 0 0;
-          padding: 0.5rem;
-          background: black;
-          color: white;
-        }
-
-        .placeList_container {
-          width: 19rem;
-          height: 83vh;
-          position: absolute;
-          z-index: 2;
-          margin-top: 5%;
-          margin-left: 0.5%;
-          top: 0;
-          overflow-y: scroll;
-          overflow-x: hidden;
-        }
-
-        #map {
-          width: 100%;
-          height: 80vh;
-          margin: auto;
-        }
-
-        // #menu_wrap {
-        //   position: relative;
-        //   width: 100%;
-        //   top: 0;
-        //   left: 0;
-        //   bottom: 0;
-        //   width: 10rem;
-        //   padding: 5px;
-        //   z-index: 1;
-        //   font-size: 12px;
-        // }
-
-        .item .info {
-          background: rgba(255, 255, 255, 0.7);
-          // padding: .5rem;
-          margin: 0.1rem;
-          height: 4rem;
-          display: flex;
-          flex-direction: column;
-          border: 1px solid black;
-          justify-content: center;
-          align-items: center;
-          border-radius: 10px;
-          // background: lightgray;
-        }
-
-        h5 {
-          padding: 0;
-          margin: 0;
-          font-size: 1rem;
-          padding-bottom: 0.2rem;
-          // background-color:black;
-          // color: white;
-        }
-
-        h6 {
-          padding: 0;
-          margin: 0;
-        }
-
-        #placeList li {
-          list-style: none;
-        }
-
-        .place_category {
-          color: tomato;
-        }
-
-        .place_address {
-          color: gray;
-          padding-top: 0.3rem;
-          font-size: 0.8rem;
-        }
-
-        .info a {
-          text-decoration: none;
-          color: black;
-        }
-
-        .info a:hover {
-          text-decoration: none;
-          color: gray;
-          transition: 0.3s;
-        }
-
-        // ul{
-        //   padding:0;
-        //   margin:0;
-        // }
       `}</style>
     </div>
   );
