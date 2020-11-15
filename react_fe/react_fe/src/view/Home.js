@@ -47,7 +47,6 @@ class Home extends Component {
             margin: 0;
             padding: 2rem;
             padding-top: 3rem;
-            overflow:hidden;
           }
 
           .container {

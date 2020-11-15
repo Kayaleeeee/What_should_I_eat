@@ -1,6 +1,7 @@
 {
   "name": "react_fe",
   "version": "0.1.0",
+  "proxy": "https://place.map.kakao.com/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -9,6 +10,7 @@
     "axios": "^0.20.0",
     "cheerio": "^1.0.0-rc.3",
     "cheerio-react": "^1.0.2",
+    "nightmare": "^3.0.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

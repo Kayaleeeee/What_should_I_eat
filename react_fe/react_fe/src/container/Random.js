@@ -91,7 +91,7 @@ const Random = ({randomMenu, closeModal}) => {
   }, [randomMenu]);
   return (
     <div className="random_container">
-        <h1>😋오늘의 추천 메뉴는?🧐</h1>
+        <h2 className="random_con_title">😋  오늘의 추천 메뉴는?  🧐</h2>
         <div className="randomMenu">
           {loading ? (
             <img src={require("../static/food.gif")} alt="food image" />
@@ -99,38 +99,51 @@ const Random = ({randomMenu, closeModal}) => {
             randomMenuIcon + randomMenu + randomMenuIcon
           )}
           {!loading && (
-            <button onClick={closeModal}>내 주변 식당 추천받기</button>
+            <button className="random_btn" onClick={closeModal}>내 주변 식당 추천받기</button>
           )}
         </div>
       <style jsx>{`
         .random_container {
+          font-family: "Do Hyeon";
           width: 100%;
-          display: flex;
           justify-content: center;
           align-items: center;
+          margin:auto;
         }
         .randomMenu {
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 40px;
+          font-size: 2rem;
           flex-direction: column;
-          margin-top: 100px;
+          padding:1rem;
         }
-        button {
-          margin-top: 70px;
-          border: solid 1px #0052cc;
+
+        button.random_btn {
+          margin-top: 3rem;
+          border: solid 1px #f07c00;
           border-radius: 20px;
           height: 40px;
           width: 200px;
           font-size: 18px;
           background-color: #ffffff;
-          color: #0052cc;
+          color: #f07c00;
           cursor: pointer;
         }
-        h1 {
-          text-align: center;
+
+        button.random_btn:hover {
+          background-color: #f07c00
+          color:white;
+          transition:0.2s;
         }
+
+        .random_con_title {
+          text-align: center;
+          font-size:2rem;
+          padding: 2rem 0;
+          margin:0.5rem;
+        }
+
         .randomMenu img {
           width: 5rem;
         }

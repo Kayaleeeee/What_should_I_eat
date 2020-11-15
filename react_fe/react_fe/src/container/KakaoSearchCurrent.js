@@ -21,6 +21,7 @@ const KakaoSearchCurrent = () => {
 
   const searchPlace = () => {
     const latLng = "x=" + position.longitude + "&y=" + position.latitude;
+    
     axios
       .get("https://dapi.kakao.com/v2/local/geo/coord2address.json?" + latLng, {
         headers: {
@@ -47,6 +48,8 @@ const KakaoSearchCurrent = () => {
       timeout: 5000,
       maximumAge: 0,
     };
+
+
     const watcher = geo.watchPosition(onChange, onError, options);
     //return () => geo.clearWatch(watcher);
     //테스트용 코드

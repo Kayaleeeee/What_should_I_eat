@@ -62,7 +62,7 @@ class About extends Component {
               text-decoration: none;
               color:white;
             }
-
+            
             .nav_container a:hover {
               color:red;
             }
@@ -93,17 +93,6 @@ class About extends Component {
             display: flex;
             flex-direction: column;
           }
-
-
-          // .logo {
-          //   font-size: 35px;
-          //   font-weight: lighter;
-          //   display: block;
-          //   position: fixed;
-          //   top: 50px;
-          //   left: 50px;
-          // }
-
 
           .logo {
             font-size: 35px;
