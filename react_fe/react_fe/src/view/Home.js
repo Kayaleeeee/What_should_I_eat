@@ -59,6 +59,7 @@ class Home extends Component {
             border: 8px solid black;
             overflow: hidden;
           }
+          
           .container2 {
             width: 100%;
             height: 100%;
