@@ -114,7 +114,7 @@ class Home extends Component {
             background-image:url("${require("../static/chopsticks.png")}");
             background-size:contain;
             z-index:1;
-            background-color:rgba(1,1,1,0.5);
+            background-color:rgba(108,137,255,0.5);
             border-radius: 20px 0 0 20px;
             cursor: pointer;
             -webkit-animation-name: test;
@@ -128,7 +128,7 @@ class Home extends Component {
             background-image:url("${require("../static/restaurant.png")}");
             background-size:contain;
             z-index:1;
-            background-color:rgba(1,1,1,0.5);
+            background-color:rgba(147,118,0,0.5);
             -webkit-animation-name: test;
             -webkit-animation-duration: 0.5s;
             -webkit-animation-fill-mode: forwards;

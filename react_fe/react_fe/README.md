@@ -1,68 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#🥙 오늘 뭐 먹지 🌭
 
-## Available Scripts
+## 1. 업무 분담
 
-In the project directory, you can run:
+이가연 :
+김지현 :
+이준형 : 홈 화면 디자인, 설계, 구현
 
-### `yarn start`
+&nbsp;
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 2. 사용 기술 및 개발 기획
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### 1) 사용 기술
 
-### `yarn test`
+React와 kakaomap API를 이용하여 개발
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
 
-### `yarn build`
+-React
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+&nbsp;
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 3. 핵심 기능
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1) 내 위치 주변 식당 모아보기 기능
 
-### `yarn eject`
+- 사용 중인 기기의 gps를 기반으로 주위 식당을 리스트로 나열
+- 카카오맵을 기반으로 식당 모아보기
+- 평점순 및 거리순으로 리스트 정렬
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2) 검색 위치 기반 식당 검색 기능
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 장소 및 메뉴를 검색하여 결과를 리스트로 나열
+- 카카오맵을 기반으로 식당 모아보기
+- 평점순 및 거리순으로 리스트 정렬
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 3) 랜덤 메뉴 추천 기능
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 랜덤메뉴 제시
+- 제시된 메뉴를 판매하는 주위 식당 검색
 
-## Learn More
+&nbsp;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 4. 핵심 기능 사용법
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1) 내 위치 주변 식당 모아보기 기능
 
-### Code Splitting
+- 사전 준비
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+1. 사용 기기 GPS 켜기
 
-### Analyzing the Bundle Size
+- 접근 방법
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+1. 홈화면 => 서비스 이용하기 => '주변 뭐먹지' 클릭
+2. 네비게이션바의 '주변 뭐먹지' 클릭
 
-### Making a Progressive Web App
+- 이용 방법
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+1. 이용자 주변 식당 지도 및 리스트 자동 로드
+2. 리스트 상 식당 클릭시 i-frame으로 식당정보 로드
+3. 지도 상 식당 클릭시 새탭에 식당정보 로드
 
-### Advanced Configuration
+### 2) 검색 위치 기반 식당 검색 기능
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- 사전 준비
 
-### Deployment
+1. 사용 기기 GPS 켜기
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- 접근 방법
 
-### `yarn build` fails to minify
+1. 홈화면 => 서비스 이용하기 => '가서 뭐먹지' 클릭
+2. 네비게이션바의 '가서 뭐먹지' 클릭
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- 이용 방법
+
+1. 검색창에 위치 및 메뉴 검색 "위치 메뉴"(ex. 합정 버거)
+2. 리스트 상 식당 클릭시 i-frame으로 식당정보 로드
+3. 지도 상 식당 클릭시 새탭에 식당정보 로드
+
+### 3) 랜덤 메뉴 추천 기능
+
+- 접근 방법
+
+1. 네비게이션바의 '랜덤메뉴추천' 클릭
+
+- 이용 방법
+
+1. 클릭시 랜덤으로 메뉴를 제시
+2. 제시받은 메뉴를 기반으로 사용자 주위 식당 추천 ex. ('중화요리' => 내 주위 중화요리집 추천)
