@@ -126,7 +126,9 @@ const KakaoSearchCurrent = () => {
 
         p {
           margin-top: 50px;
+          font-family: "Do Hyeon";
         }
+        
         .loading img {
           width: 5rem;
           animation: blink 1s infinite;
