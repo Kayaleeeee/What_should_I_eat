@@ -11,7 +11,8 @@ class About1 extends Component {
             "주위 식당들을
             <br /></span>
           <span>한눈에 비교할 수 있다면?"</span>
-          <div className="service_btn"> <h5 ><Link className="service_btn_title" to ="/whatToEat"> 👉 서비스 이용하기 </Link></h5></div>
+          <div className="service_btn"> 
+          <h3 ><Link className="service_btn_title" to ="/whatToEat"> 👉 서비스 이용하기 </Link></h3></div>
         </div>
         <div className="bg2map">
         </div>
@@ -25,6 +26,9 @@ class About1 extends Component {
               
             }
 
+            .service_btn h3{
+              font-size: 2rem;
+            }
 
      
             .service_btn_title{

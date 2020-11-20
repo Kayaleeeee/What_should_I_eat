@@ -6,25 +6,6 @@ class About extends Component {
   render() {
     return (
       <div id="About">
-        {/* <div className={"logo"}>
-          <span>오늘뭐먹지</span>
-        </div> */}
-
-        {/* LOGO */}
-{/* 
-        <Link
-          className="bg1a"
-          activeClass="active"
-          to="About1"
-          spy={true}
-          smooth={true}
-          // offset={-70}
-          duration={500}
-        >
-          <div className="arrow arrow1"></div>
-        </Link> */}
-
-        {/* FIRST CARD */}
 
         <Link
           className="bg2a"
@@ -38,20 +19,7 @@ class About extends Component {
           <img src={require("../static/down-arrow (1).png")} className="arrow4"></img> 
           <div className="arrow arrow2"></div>
         </Link>
-        {/* SECOND CARD */}
 
-        {/* <Link
-          className="bg3a"
-          activeClass="active"
-          to="About3"
-          spy={true}
-          smooth={true}
-          // offset={-70}
-          duration={500}
-        >
-          <div className="arrow arrow3"></div>
-        </Link> */}
-        {/* THIRD CARD */}
         <About1 />
         <About2 />
         
