@@ -96,15 +96,17 @@ const Random = ({randomMenu, closeModal}) => {
           {loading ? (
             <img src={require("../static/food.gif")} alt="food image" />
           ) : (
-            randomMenuIcon + randomMenu + randomMenuIcon
+            randomMenuIcon + " " + randomMenu + " " + randomMenuIcon
           )}
           {!loading && (
             <button className="random_btn" onClick={closeModal}>내 주변 식당 추천받기</button>
           )}
         </div>
       <style jsx>{`
-        .random_container {
+        *{
           font-family: "Do Hyeon";
+        }
+        .random_container {
           width: 100%;
           justify-content: center;
           align-items: center;

@@ -87,6 +87,7 @@ const KakaoSearchRandom = () => {
 
         p {
           margin-top: 50px;
+          font-family: "Do Hyeon";
         }
 
         .loading img {
