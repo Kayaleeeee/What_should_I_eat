@@ -2,9 +2,9 @@
 
 ## 1. 업무 분담
 
-이가연 :
-김지현 :
-이준형 : 홈 화면 디자인, 설계, 구현
+- 이가연 : 
+- 김지현 : 주변 뭐먹지, 메뉴랜덤추천 기능 설계 및 구현
+- 이준형 : 홈 화면 디자인, 설계, 구현
 
 &nbsp;
 
@@ -12,11 +12,12 @@
 
 ### 1) 사용 기술
 
-React와 kakaomap API를 이용하여 개발
+React와 Kakaomap API를 이용하여 개발
 
 ### Frontend
 
--React
+- React
+- Styled JSX
 
 &nbsp;
 
