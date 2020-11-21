@@ -12,7 +12,7 @@ class About1 extends Component {
             <br /></span>
           <span>한눈에 비교할 수 있다면?"</span>
           <div className="service_btn"> 
-          <h3 ><Link className="service_btn_title" to ="/whatToEat"> 👉 서비스 이용하기 </Link></h3></div>
+          <h3><Link className="service_btn_title" to ="/whatToEat"> 👉 서비스 이용하기 </Link></h3></div>
         </div>
         <div className="bg2map">
         </div>
@@ -38,7 +38,7 @@ class About1 extends Component {
               font-weight:lighter;
               border-radius: 10px;
               text-decoration:none;
-          
+              color: #ffffff;
             }
 
             a.service_btn_title:visited{
@@ -57,9 +57,6 @@ class About1 extends Component {
               background-color:#f07c00;
               box-shadow : 6px 6px black;
             }
-
-
-
         `}
         </style>
       </div>

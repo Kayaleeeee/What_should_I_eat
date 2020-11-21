@@ -12,8 +12,8 @@ function App() {
     <Router>
       <div id="web_wrap">
         <nav>
-        <Nav id ="nav_bar"/>
-      </nav>
+          <Nav id ="nav_bar"/>
+        </nav>
       <main>
         <Switch>
           {/* <Route path="/" exact component={Home} /> */}

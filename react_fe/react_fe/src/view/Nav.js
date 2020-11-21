@@ -82,6 +82,7 @@ const Nav = () => {
           font-weight: lighter;
           font-size: 1.2rem;
           text-decoration: none;
+          color: #000000;
         }
         .nav_container a:visited {
           color: #000000;

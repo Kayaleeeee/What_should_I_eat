@@ -32,11 +32,13 @@ class About extends Component {
             }
             
             .nav_container a:hover {
-              color:red;
+              color: #b1b1b1;
             }
+
             .nav_container a:visited{
-              color:white;
+              color: white;
             }
+
 
           #About {
             margin: 0;

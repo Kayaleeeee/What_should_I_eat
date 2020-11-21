@@ -201,7 +201,7 @@ class Home extends Component {
 
           a {
             text-decoration: none;
-            color: rgb(236, 240, 229);
+            //color: rgb(236, 240, 229);
             width: 100%;
             height: 100%;
           }
