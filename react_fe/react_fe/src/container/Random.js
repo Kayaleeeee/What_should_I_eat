@@ -14,11 +14,16 @@ const Random = ({randomMenu, closeModal}) => {
       else if (randomMenu.includes("한식") || randomMenu.includes("밥")) {
         return "🍚";
       }
-      else if (randomMenu.includes("국") || randomMenu.includes("탕")) {
+      else if (randomMenu.includes("국") || randomMenu.includes("탕") || randomMenu.includes("동남아")
+        || randomMenu.includes("쌀국수")) {
         return "🍲";
       }
-      else if (randomMenu.includes("육류") || randomMenu.includes("고기")) {
+      else if (randomMenu.includes("육류") || randomMenu.includes("고기") || randomMenu.includes("갈비")
+        || randomMenu.includes("곱창") || randomMenu.includes("막창")) {
         return "🥓";
+      }
+      else if (randomMenu.includes("족발")) {
+        return "🍖";
       }
       else if (randomMenu.includes("도시락")) {
         return "🍱";
@@ -26,10 +31,10 @@ const Random = ({randomMenu, closeModal}) => {
       else if (randomMenu.includes("일식") || randomMenu.includes("초밥")) {
         return "🍣";
       }
-      else if (randomMenu.includes("카레")) {
+      else if (randomMenu.includes("카레") || randomMenu.includes("인도")) {
         return "🍛";
       }
-      else if (randomMenu.includes("꼬치")) {
+      else if (randomMenu.includes("꼬치") || randomMenu.includes("포장마차")) {
         return "🍢";
       }
       else if (randomMenu.includes("다방")) {
@@ -43,6 +48,9 @@ const Random = ({randomMenu, closeModal}) => {
       }
       else if (randomMenu.includes("해물") || randomMenu.includes("생선")) {
         return "🦐";
+      }
+      else if (randomMenu.includes("아이스크림") || randomMenu.includes("빙수")) {
+        return "🍨";
       }
       else if (randomMenu.includes("패스트푸드") || randomMenu.includes("햄버거")) {
         return "🍔";
@@ -83,6 +91,9 @@ const Random = ({randomMenu, closeModal}) => {
       }
       else if (randomMenu.includes("멕시칸") || randomMenu.includes("브라질") || randomMenu.includes("타코")) {
         return "🌮";
+      }
+      else if (randomMenu.includes("대게") || randomMenu.includes("게")) {
+        return "🦀";
       }
       else {
         return "🍴";
