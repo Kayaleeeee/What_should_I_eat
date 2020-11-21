@@ -449,10 +449,19 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           transition: 0.3s;
         }
 
-        // ul{
-        //   padding:0;
-        //   margin:0;
-        // }
+        @font-face {
+          font-family: "Apple SD";
+          src: url("${require("../fonts/applesd.ttf")}")
+            format("truetype");
+        }
+        
+        div{
+          font-family: "Apple SD";
+        }
+  
+        h5, h6 {
+          font-weight: 590;
+        }
       `}</style>
     </div>
   );

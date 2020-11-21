@@ -126,9 +126,9 @@ const KakaoSearchCurrent = () => {
 
         p {
           margin-top: 50px;
-          font-family: "Do Hyeon";
+          font-family: "Apple SD";
         }
-        
+
         .loading img {
           width: 5rem;
           animation: blink 1s infinite;
@@ -141,6 +141,12 @@ const KakaoSearchCurrent = () => {
           100% {
             opacity: 1;
           }
+        }
+        
+        @font-face {
+          font-family: "Apple SD";
+          src: url("${require("../fonts/applesd.ttf")}")
+            format("truetype");
         }
       `}</style>
     </div>

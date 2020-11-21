@@ -87,7 +87,7 @@ const KakaoSearchRandom = () => {
 
         p {
           margin-top: 50px;
-          font-family: "Do Hyeon";
+          font-family: "Apple SD";
         }
 
         .loading img {
@@ -102,6 +102,12 @@ const KakaoSearchRandom = () => {
           100% {
             opacity: 1;
           }
+        }
+
+        @font-face {
+          font-family: "Apple SD";
+          src: url("${require("../fonts/applesd.ttf")}")
+            format("truetype");
         }
       `}</style>
     </div>

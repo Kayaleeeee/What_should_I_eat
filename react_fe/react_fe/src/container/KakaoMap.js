@@ -284,8 +284,19 @@ const KakaoMap = ({ searchPlace }) => {
 
       <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
       <style jsx>{`
+      @font-face {
+        font-family: "Apple SD";
+        src: url("${require("../fonts/applesd.ttf")}")
+          format("truetype");
+      }
+      
+      div{
+        font-family: "Apple SD";
+      }
 
-
+      h5, h6 {
+        font-weight: 590;
+      }
       `}</style>
     </div>
   );
