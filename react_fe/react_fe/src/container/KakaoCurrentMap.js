@@ -421,7 +421,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
         .placeList_title {
           text-align: center;
           margin: auto;
-          width: 95%;
+          width: 90%;
           border-radius: 10px 10px 0 0;
           padding: 0.5rem;
           background: black;
@@ -439,7 +439,18 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           overflow-y: scroll;
           overflow-x: hidden;
         }
-
+        .placeList_container::-webkit-scrollbar {
+          width: 10px;
+        }
+        .placeList_container::-webkit-scrollbar-thumb {
+          background-color: rgba(0,0,0,0.5);
+          border-radius: 8px;
+        }
+        .placeList_container::-webkit-scrollbar-thumb:hover {
+          background-color: black;
+        }
+        .placeList_container::-webkit-scrollbar-track {
+        }
         .placeInfo_container {
         }
 
