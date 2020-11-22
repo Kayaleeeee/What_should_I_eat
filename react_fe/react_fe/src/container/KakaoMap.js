@@ -293,7 +293,22 @@ const KakaoMap = ({ searchPlace }) => {
       div{
         font-family: "Apple SD";
       }
-
+      .placeList_container::-webkit-scrollbar {
+        width: 10px;
+      }
+      .placeList_container::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 8px;
+      }
+      .placeList_container::-webkit-scrollbar-thumb:hover {
+        background-color: black;
+      }
+      .placeList_container::-webkit-scrollbar-track {
+      }
+      .placeList_title {
+        text-align: center;
+        margin: auto;
+        width: 90%;}
       h5, h6 {
         font-weight: 590;
       }
