@@ -67,6 +67,12 @@ const Random = ({randomMenu, closeModal}) => {
       else if (randomMenu.includes("피자")) {
         return "🍕";
       }
+      else if (randomMenu.includes("회")) {
+        return "🐟";
+      }
+      else if (randomMenu.includes("중국") || randomMenu.includes("중화")) {
+        return "🥟";
+      }
       else if (randomMenu.includes("치킨") || randomMenu.includes("닭")) {
         return "🍗";
       }
@@ -114,9 +120,20 @@ const Random = ({randomMenu, closeModal}) => {
           )}
         </div>
       <style jsx>{`
-        *{
+        @font-face {
+          font-family: "Apple SD";
+          src: url("${require("../fonts/applesd.ttf")}")
+            format("truetype");
+        }
+
+        h2 {
           font-family: "Do Hyeon";
         }
+
+        .randomMenu, button {
+          font-family: "Apple SD";
+        }
+        
         .random_container {
           width: 100%;
           justify-content: center;

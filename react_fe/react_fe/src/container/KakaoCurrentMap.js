@@ -20,12 +20,12 @@ const customStyles = {
 };
 const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
   const [markers, setMarkers] = useState([]);
-  const [place_list, setPlaceList] = useState([]);
   const [url, setURL] = useState("");
   const [show, setShow] = useState(false);
   const [isReady, setIsReady] = useState(isRandom ? false : true);
   const [modalIsOpen, setIsOpen] = useState(true);
   const [randomMenu, setRandomMenu] = useState("맛집");
+  const [sortDis, setSortDis] = useState(false);
   let categoryList = [];
 
   function closeModal() {
@@ -37,15 +37,22 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
     setShow(false);
   };
 
-  const onSortDis = () => {};
+  const onSortDis = () => {
+    sortDis ? setSortDis(false) : setSortDis(true);
+  };
 
   const onSortPop = () => {};
 
   const placeList = [];
 
-  function placeStruct(place) {
-    const placeInfo = place;
-    const placeUrl = place.place_url;
+  function calDistDiff(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+            c(lat1 * p) * c(lat2 * p) * 
+            (1 - c((lon2 - lon1) * p))/2;
+  
+    return 12742 * Math.asin(Math.sqrt(a));
   }
 
   const placeRating = (placeUrl) => {
@@ -73,10 +80,17 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
     const map = new kakao.maps.Map(container, options);
     // 장소 검색 객체를 생성
 
+    var locPosition = new kakao.maps.LatLng(lat, long), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+    message = '<div style="padding:5px;">현재 위치는 여기!</div>'; // 인포윈도우에 표시될 내용입니다
+
+    // 마커와 인포윈도우를 표시합니다
+
+
     const ps = new kakao.maps.services.Places();
     if (searchPlace !== "") {
       // 키워드로 장소를 검색
-      ps.keywordSearch(searchPlace + " " + randomMenu, placesSearchCB);
+      isRandom ? ps.keywordSearch(searchPlace + " " + randomMenu, placesSearchCB)
+      : ps.keywordSearch(searchPlace + " " + "맛집", placesSearchCB);
 
       removeAllChildNods(document.getElementById("placeList"));
 
@@ -125,7 +139,25 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
           // LatLngBounds 객체에 좌표를 추가
           let bounds = new kakao.maps.LatLngBounds();
-
+          if (sortDis) {
+            displayCurrentMarker(locPosition, message);
+            console.log("place list: ", placeList);
+            setTimeout(() => {
+              placeList.sort(function(x, y) {
+                return x.dist < y.dist ? -1 : x.dist > y.dist ? 1 : 0;
+              });
+            }, 1000);
+            console.log("place list after: ", placeList);
+            let final = [];
+            setTimeout(() => {
+              console.log(placeList.length);
+              for (let i = 0; i < placeList.length; i++) {
+                final.push(placeList[i].placeInfo);
+                console.log("final: ", final);
+              }
+              displayPlaces(final);
+            }, 1000);
+          }
           displayPlaces(data);
           for (let i = 0; i < data.length; i++) {
             //URL받아오기 성공
@@ -143,6 +175,30 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           return;
         }
       }
+
+      function displayCurrentMarker(locPosition, message) {
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({  
+            map: map, 
+            position: locPosition
+        }); 
+        
+        var iwContent = message, // 인포윈도우에 표시할 내용
+            iwRemoveable = false;
+    
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content : iwContent,
+            removable : iwRemoveable
+        });
+        
+        // 인포윈도우를 마커위에 표시합니다 
+        infowindow.open(map, marker);
+        
+        // 지도 중심좌표를 접속위치로 변경합니다
+        map.setCenter(locPosition);      
+    }  
 
       function displayMarker(place) {
         // 마커를 생성하고 지도에 표시
@@ -192,10 +248,10 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           categoryList.push(places.category_name);
         }
         //const rate = placeRating(places.place_url);
-        //const place = placeStruct(places, rate);
+        const diff = calDistDiff(places.y, places.x, lat, long);        
         //console.log("rate: ", rate);
 
-        //placeList.push(place);
+        placeList.push({placeInfo: places, dist: diff});
 
         if (places.road_address_name) {
           itemStr +=
@@ -225,9 +281,8 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
         removeAllChildNods(placesList);
         removeMarker();
-        //place.sort(function (place1, place2) {});
         for (let i = 0; i < place.length; i++) {
-          let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
+            let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
             bounds = new kakao.maps.LatLngBounds(),
             marker = addMarker(placePosition, i);
 
@@ -264,7 +319,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
         placesList.appendChild(fragment);
       }
     }
-  }, [searchPlace, modalIsOpen]);
+  }, [searchPlace, modalIsOpen, sortDis]);
 
   return (
     <div id="map_wrap">
