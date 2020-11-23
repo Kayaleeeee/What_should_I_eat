@@ -2,7 +2,7 @@
 
 ## 1. 업무 분담
 
-- 이가연 : 가서 뭐먹지, 카카오맵 API 컴포넌트화
+- 이가연 : 
 - 김지현 : 주변 뭐먹지, 메뉴랜덤추천 기능 설계 및 구현
 - 이준형 : 홈 화면 디자인, 설계, 구현
 
@@ -16,10 +16,8 @@ React와 Kakaomap API를 이용하여 개발
 
 ### Frontend
 
-- Kakao API
-- ReactJS, JavaScript
-- Styled JSX, SCSS
-- Surge
+- React
+- Styled JSX
 
 &nbsp;
 
