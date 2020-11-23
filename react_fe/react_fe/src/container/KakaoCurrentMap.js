@@ -26,6 +26,7 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
   const [modalIsOpen, setIsOpen] = useState(true);
   const [randomMenu, setRandomMenu] = useState("맛집");
   const [sortDis, setSortDis] = useState(false);
+  const [sortPop, setSortPop] = useState(false);
   let categoryList = [];
 
   function closeModal() {
@@ -41,7 +42,9 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
     sortDis ? setSortDis(false) : setSortDis(true);
   };
 
-  const onSortPop = () => {};
+  const onSortPop = () => {
+    sortPop ? setSortPop(false) : setSortPop(true);
+  };
 
   const placeList = [];
 
@@ -89,8 +92,11 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
     const ps = new kakao.maps.services.Places();
     if (searchPlace !== "") {
       // 키워드로 장소를 검색
-      isRandom ? ps.keywordSearch(searchPlace + " " + randomMenu, placesSearchCB)
-      : ps.keywordSearch(searchPlace + " " + "맛집", placesSearchCB);
+      !isRandom ? ps.keywordSearch(searchPlace + "맛집", placesSearchCB)
+      : randomMenu.includes(",") ? 
+        ps.keywordSearch(searchPlace + randomMenu.split(",").pop(), placesSearchCB)
+      : ps.keywordSearch(searchPlace + randomMenu, placesSearchCB);
+      console.log(randomMenu);
 
       removeAllChildNods(document.getElementById("placeList"));
 
@@ -141,19 +147,15 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           let bounds = new kakao.maps.LatLngBounds();
           if (sortDis) {
             displayCurrentMarker(locPosition, message);
-            console.log("place list: ", placeList);
             setTimeout(() => {
               placeList.sort(function(x, y) {
                 return x.dist < y.dist ? -1 : x.dist > y.dist ? 1 : 0;
               });
             }, 1000);
-            console.log("place list after: ", placeList);
             let final = [];
             setTimeout(() => {
-              console.log(placeList.length);
               for (let i = 0; i < placeList.length; i++) {
                 final.push(placeList[i].placeInfo);
-                console.log("final: ", final);
               }
               displayPlaces(final);
             }, 1000);
@@ -312,10 +314,12 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
             fragment.appendChild(placeItem);
           }
         }
-        let menu =
+        if (isRandom && randomMenu == "맛집") {
+          let menu =
           categoryList[Math.floor(Math.random() * categoryList.length)];
-        menu = menu.split(">").pop();
-        setRandomMenu(menu);
+          menu = menu.split(">").pop().trim();
+          setRandomMenu(menu);
+        }
         placesList.appendChild(fragment);
       }
     }
@@ -337,7 +341,14 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
         {isReady && <h3 className="placeList_title">음식점 리스트</h3>}
         {isReady && (
           <div className="cate">
-            <p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p>
+            <p className={sortPop ? "selected" : ""}
+              onClick={onSortPop}>
+                평점순
+            </p> 
+            <p className={sortDis ? "selected" : "hi"}
+              onClick={onSortDis}>
+                거리순
+            </p>
           </div>
         )}
         <div id="placeList"></div>
@@ -384,6 +395,10 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
           color: white;
           font-size: 0.9rem;
           border-radius: 3px;
+        }
+
+        .cate .selected{
+          background: #c7724d;
         }
 
         .cate p:hover {
