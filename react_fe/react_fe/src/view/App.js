@@ -15,6 +15,7 @@ function App() {
           <Nav id ="nav_bar"/>
         </nav>
       <main>
+        <div className="mobile"><p>현재 모바일 버전은</p><p> 이용하실 수가 없습니다.</p><p>PC로 접속 부탁드립니다.</p></div>
         <Switch>
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={About} />
@@ -32,13 +33,35 @@ function App() {
           width: 100wh;
           overflow:hidden;
         }
-        
+
         nav{
           position: fixed;
           top:0;
           width:90%;
           right:0;
         }
+.mobile{
+  width:0px;
+  font-size:0px;
+}
+        @media only screen and (max-width: 499px)
+{
+  .mobile{
+  font-size:8vw;
+  font-family:"Do Hyeon";
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:100vw;
+  height:100vh;
+  background-color:black;
+  position:fixed;
+  z-index:99;
+  
+  }
+}
         `}
 </style>
     </Router>
