@@ -20,6 +20,7 @@
     "react-scripts": "^3.4.4",
     "react-scroll": "^1.8.1",
     "react-spinners": "^0.9.0",
+    "react-toastify": "^6.1.0",
     "styled-components": "^5.2.0",
     "styled-jsx": "^3.3.0",
     "use-position": "0.0.7"
@@ -55,7 +56,7 @@
   },
   "git": {
     "scripts": {
-      "pre-push": "surge --project ./ --domain example-githooks.surge.sh"
+      "pre-push": "surge --project ./ --domain what-to-eat.surge.sh"
     }
   }
 }

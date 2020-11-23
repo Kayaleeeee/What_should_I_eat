@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PlaceInfo from "./PlaceInfo";
 import "./scss/kakaoMap.scss"
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { kakao } = window;
 
@@ -16,16 +18,6 @@ const KakaoMap = ({ searchPlace }) => {
    }
 
 
-
-  const onSortDis=()=>{
-
-
-  }
-
-  const onSortPop =()=>{
-
-  }
-   
 
 
   useEffect(() => {
@@ -101,12 +93,33 @@ const KakaoMap = ({ searchPlace }) => {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정
         map.setBounds(bounds);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert("검색 결과가 존재하지 않습니다.");
+        // alert("검색 결과가 존재하지 않습니다.");
+
+        toast.error("😥 검색 결과가 존재하지 않습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+
         return;
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert("검색 결과 중 오류가 발생했습니다.");
+        toast.error("검색 결과가 존재하지 않습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         return;
       }
+
+      
     }
 
     function displayMarker(place) {
@@ -278,7 +291,17 @@ const KakaoMap = ({ searchPlace }) => {
       <div id="map"></div>
       <div className="placeList_container">
         <h3 className="placeList_title">음식점 리스트</h3>{" "}
-        <div className="cate"><p onClick={onSortPop}>평점순</p> <p onClick={onSortDis}>거리순</p></div>
+        {/* <div className="cate"><p >평점순</p> <p >거리순</p></div> */}
+        <ToastContainer 
+             position="top-center"
+             autoClose={5000}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+            pauseOnHover />
         <div id="placeList" ></div>
       </div>
 
