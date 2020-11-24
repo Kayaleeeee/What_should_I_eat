@@ -111,7 +111,7 @@ const Random = ({randomMenu, closeModal}) => {
         <h2 className="random_con_title">😋  오늘의 추천 메뉴는?  🧐</h2>
         <div className="randomMenu">
           {loading ? (
-            <img src={require("../static/food.gif")} alt="food image" />
+            <img src={require("../static/food.gif")} alt="food" />
           ) : (
             randomMenuIcon + " " + randomMenu + " " + randomMenuIcon
           )}

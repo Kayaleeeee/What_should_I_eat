@@ -43,10 +43,12 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
 
   const onSortDis = () => {
     sortDis ? setSortDis(false) : setSortDis(true);
+    setSortPop(false);
   };
 
   const onSortPop = () => {
     sortPop ? setSortPop(false) : setSortPop(true);
+    setSortDis(false);
   };
 
   const placeList = [];
@@ -99,7 +101,6 @@ const KakaoCurrentMap = ({ searchPlace, lat, long, isRandom }) => {
       : randomMenu.includes(",") ? 
         ps.keywordSearch(searchPlace + randomMenu.split(",").pop(), placesSearchCB)
       : ps.keywordSearch(searchPlace + randomMenu, placesSearchCB);
-      console.log(randomMenu);
 
       removeAllChildNods(document.getElementById("placeList"));
 
