@@ -9,6 +9,8 @@ const PlaceInfo=({url, show, showInfo})=>{
 //    const showInfo=()=>{
 //         setShow(false);
 //     }
+
+console.log("여기서 받아와야지 ", url)
     
     return (
         <div>
