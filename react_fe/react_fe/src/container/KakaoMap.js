@@ -153,56 +153,9 @@ const KakaoMap = ({ searchPlace }) => {
     }
 
 
-    const placeRating=(placeUrl)=>{
-      const request = require('request');
-      const cheerio = require("cheerio");
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-      
-      // var page = require('webpage').create();
-      // page.open(proxyUrl+placeUrl, function(){
-      //   setTimeout(function(){
-      //     page.render(".kakaoWrap")
-      //   })
-      // })
-
-      request(proxyUrl+ placeUrl, function(err, res, data ){
-  
-        if(!err){ 
-          const $ = cheerio.load(data);
-
-          console.log(data)
- 
-          // setTimeout(function () {
-          //   console.log(data.length)
-          //   // console.log($("body").text())
-          // })
-  
-        }
-      })
 
 
-
-      // const Nightmare = require('nightmare')
-      // const nightmare = Nightmare({ show: true })
-
-      // nightmare
-      //    .goto('https://duckduckgo.com')
-      //   .type('#search_form_input_homepage', 'github nightmare')
-      //   .click('#search_button_homepage')
-      //   .wait('#r1-0 a.result__a')
-      //   .evaluate(() => document.querySelector('#r1-0 a.result__a').href)
-      //   .end()
-      //   .then(console.log)
-      //   .catch(error => {
-      //     console.error('Search failed:', error)
-      //   })
-    }
-
-
-    // 검색결과 항목을 Element로 반환하는 함수
     function getListItem(index, places) {
-
-      // placeRating(places.place_url);
 
 
       var el = document.createElement("li"),
@@ -212,12 +165,7 @@ const KakaoMap = ({ searchPlace }) => {
           '"></span>' +
           '<div class="info">' +
           "<h5 className='place_name'>" +
-          // "<a href= " +
-          // places.place_url +
-          // " target='_blank'>" +
           places.place_name +
-          // "</a>
-          
           "</h5>" +
           `<h6 class='place_category'>${places.category_name}</h6>`;
 
@@ -238,8 +186,8 @@ const KakaoMap = ({ searchPlace }) => {
         setURL(places.place_url);
         console.log("click event")
         console.log(url)
-        //url === true ? setShow(url) : setShow(!url);
         url === true ? setShow(show) : setShow(!show);
+        console.log(show)
       };
       return el;
     }
@@ -305,7 +253,7 @@ const KakaoMap = ({ searchPlace }) => {
         <div id="placeList" ></div>
       </div>
 
-      <PlaceInfo url={url} show={show}  showInfo={showInfo}/>
+      <PlaceInfo url={url} show={show} showInfo={showInfo}/>
       <style jsx>{`
       @font-face {
         font-family: "Apple SD";

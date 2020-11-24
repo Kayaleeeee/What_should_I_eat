@@ -39,6 +39,7 @@ const KakaoSearchCurrent = () => {
 
   useEffect(() => {
     const geo = navigator.geolocation;
+    console.log(geo)
     if (!geo) {
       setError("Geolocation is not supported");
       return;
@@ -65,7 +66,7 @@ const KakaoSearchCurrent = () => {
           //console.log("scraping: " + res.body);
           //console.log("html: ", html);
           var $ = cheerio.load(html);
-          console.log("data: ", $("body").text());
+          // console.log("data: ", $("body").text());
           $("body").each(function () {
             var data = $(this);
             //console.log("hh:" + data.text());
@@ -80,6 +81,8 @@ const KakaoSearchCurrent = () => {
 
   useEffect(() => {
     searchPlace();
+
+    console.log("position : " ,position)
   }, [position]);
   return (
     <div className="outline">
